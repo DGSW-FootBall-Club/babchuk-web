@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --font-pretendard: var(--font-pretendard);
+  --font-rocket: var(--font-a-rocket);
+
+  --color-primary: #3366ff;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Regular.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Medium.otf") format("opentype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-SemiBold.otf") format("opentype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-Bold.otf") format("opentype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("../assets/fonts/Pretendard-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+}
