@@ -28,7 +28,6 @@ export function useSignup() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (field: string, value: string) => {
     setValues(prev => ({ ...prev, [field]: value }))
@@ -50,10 +49,7 @@ export function useSignup() {
   const handleSignup = async () => {
     try {
       setIsLoading(true)
-      setError(null)
-
       const profileImage = imageFile ? await toBase64(imageFile) : undefined
-
       await authApi.signup({
         username: values.username,
         password: values.password,
@@ -65,11 +61,11 @@ export function useSignup() {
       })
       router.push('/login')
     } catch (e: any) {
-      setError(e.response?.data?.message ?? '회원가입에 실패했어요')
+      alert(e.response?.data?.message ?? '회원가입에 실패했어요')
     } finally {
       setIsLoading(false)
     }
   }
 
-  return { values, skill, setSkill, gender, setGender, preview, handleChange, handleImage, isValid, isLoading, error, handleSignup }
+  return { values, skill, setSkill, gender, setGender, preview, handleChange, handleImage, isValid, isLoading, handleSignup }
 }

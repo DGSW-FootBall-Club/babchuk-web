@@ -8,7 +8,6 @@ export function useLogin() {
   const router = useRouter()
   const [values, setValues] = useState({ id: '', password: '' })
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (field: string, value: string) => {
     setValues(prev => ({ ...prev, [field]: value }))
@@ -19,17 +18,16 @@ export function useLogin() {
   const handleLogin = async () => {
     try {
       setIsLoading(true)
-      setError(null)
       const res = await authApi.login({ username: values.id, password: values.password })
       localStorage.setItem('accessToken', res.accessToken)
       localStorage.setItem('refreshToken', res.refreshToken)
       router.push('/')
     } catch (e: any) {
-      setError(e.response?.data?.message ?? '로그인에 실패했어요')
+      alert(e.response?.data?.message ?? '로그인에 실패했어요')
     } finally {
       setIsLoading(false)
     }
   }
 
-  return { values, handleChange, isValid, isLoading, error, handleLogin }
+  return { values, handleChange, isValid, isLoading, handleLogin }
 }

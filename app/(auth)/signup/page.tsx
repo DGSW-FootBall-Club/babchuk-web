@@ -32,7 +32,7 @@ export default function SignupPage() {
     handleChange,
     handleImage,
     isValid,
-    handleSignup,
+    handleSignup
   } = useSignup();
 
   return (
@@ -45,7 +45,7 @@ export default function SignupPage() {
 
       <div className="flex items-center gap-4 mb-8">
         <label className="cursor-pointer">
-          <div className="w-[72px] h-[72px] rounded-full bg-[#F2F4F6] flex items-center justify-center overflow-hidden border border-[#E5E8EB]">
+          <div className="w-18 h-18 rounded-full bg-[#F2F4F6] flex items-center justify-center overflow-hidden border border-[#E5E8EB]">
             {preview ? (
               <img
                 src={preview}
@@ -53,7 +53,7 @@ export default function SignupPage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <span className="text-[24px] text-[#8B95A1]">+</span>
+              <span className="text-2xl text-[#8B95A1]">+</span>
             )}
           </div>
           <input
@@ -64,13 +64,13 @@ export default function SignupPage() {
           />
         </label>
         <div>
-          <p className="text-[14px] font-medium text-[#191F28] font-pretendard">
+          <p className="text-sm font-medium text-[#191F28] font-pretendard">
             프로필 이미지 선택
-            <span className="text-[12px] text-[#8B95A1] font-pretendard ml-1">
+            <span className="text-xs text-[#8B95A1] font-pretendard ml-1">
               (선택사항)
             </span>
           </p>
-          <p className="text-[12px] text-[#8B95A1] font-pretendard">
+          <p className="text-xs text-[#8B95A1] font-pretendard">
             갤러리에서 사진을 선택하거나
             <br />
             카메라로 촬영하세요
@@ -78,86 +78,93 @@ export default function SignupPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-8 mb-8">
-        <Input
-          label={
-            <>
-              아이디 (7자 이상)
-              <Required />
-            </>
-          }
-          type="text"
-          value={values.username}
-          onChange={(v) => handleChange("username", v)}
-        />
-        <Input
-          label={
-            <>
-              비밀번호 (영문+숫자 8자 이상)
-              <Required />
-            </>
-          }
-          type="password"
-          value={values.password}
-          onChange={(v) => handleChange("password", v)}
-        />
-        <Input
-          label={
-            <>
-              이름
-              <Required />
-            </>
-          }
-          type="text"
-          value={values.nickname}
-          onChange={(v) => handleChange("nickname", v)}
-        />
-        <Input
-          label={
-            <>
-              학번 (예: 3307)
-              <Required />
-            </>
-          }
-          type="number"
-          value={values.grade}
-          onChange={(v) => handleChange("grade", v)}
-          maxLength={4}
-        />
-      </div>
-
-      <div className="flex flex-col gap-6 mb-12">
-        <div>
-          <p className="text-[14px] font-semibold text-[#191F28] font-pretendard mb-3">
-            축구 실력
-            <Required />
-          </p>
-          <OptionSelector
-            title=""
-            options={skillOptions}
-            selected={skill}
-            onChange={setSkill}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (isValid) handleSignup();
+        }}
+      >
+        <div className="flex flex-col gap-8 mb-8">
+          <Input
+            label={
+              <>
+                아이디 (7자 이상)
+                <Required />
+              </>
+            }
+            type="text"
+            value={values.username}
+            onChange={(v) => handleChange("username", v)}
+          />
+          <Input
+            label={
+              <>
+                비밀번호 (영문+숫자 8자 이상)
+                <Required />
+              </>
+            }
+            type="password"
+            value={values.password}
+            onChange={(v) => handleChange("password", v)}
+          />
+          <Input
+            label={
+              <>
+                이름
+                <Required />
+              </>
+            }
+            type="text"
+            value={values.nickname}
+            onChange={(v) => handleChange("nickname", v)}
+          />
+          <Input
+            label={
+              <>
+                학번 (예: 3307)
+                <Required />
+              </>
+            }
+            type="number"
+            value={values.grade}
+            onChange={(v) => handleChange("grade", v)}
+            maxLength={4}
           />
         </div>
-        <div>
-          <p className="text-[14px] font-semibold text-[#191F28] font-pretendard mb-3">
-            성별
-            <Required />
-          </p>
-          <OptionSelector
-            title=""
-            options={genderOptions}
-            selected={gender}
-            onChange={setGender}
-          />
-        </div>
-      </div>
 
-      <div className="mb-12">
-        <Button onClick={handleSignup} disabled={!isValid}>
-          회원가입
-        </Button>
-      </div>
+        <div className="flex flex-col gap-6 mb-12">
+          <div>
+            <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
+              축구 실력
+              <Required />
+            </p>
+            <OptionSelector
+              title=""
+              options={skillOptions}
+              selected={skill}
+              onChange={setSkill}
+            />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
+              성별
+              <Required />
+            </p>
+            <OptionSelector
+              title=""
+              options={genderOptions}
+              selected={gender}
+              onChange={setGender}
+            />
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <Button type="submit" disabled={!isValid}>
+            회원가입
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

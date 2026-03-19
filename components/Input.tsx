@@ -38,7 +38,7 @@ export function Input({ label, type, value, onChange, maxLength, inputMode }: In
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-transparent outline-none text-[16px] text-[#191F28] pt-5 pb-2 font-rocket pr-8"
+        className="w-full bg-transparent outline-none text-base text-[#191F28] pt-5 pb-2 font-rocket pr-8"
       />
 
       {isPassword && focused && (

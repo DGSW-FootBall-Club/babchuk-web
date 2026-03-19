@@ -22,7 +22,7 @@ export function BackButton() {
       >
         <path d="M15 18l-6-6 6-6" />
       </svg>
-      <span className="text-[16px] font-semibold">뒤로가기</span>
+      <span className="text-base font-semibold">뒤로가기</span>
     </button>
   );
 }

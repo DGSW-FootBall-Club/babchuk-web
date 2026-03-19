@@ -18,7 +18,7 @@ export function OptionSelector<T extends string>({
 }: OptionSelectorProps<T>) {
   return (
     <div>
-      <p className="text-[14px] font-semibold text-[#191F28] font-pretendard mb-3">
+      <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
         {title}
       </p>
       <div
