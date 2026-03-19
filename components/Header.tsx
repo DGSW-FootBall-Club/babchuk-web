@@ -1,7 +1,11 @@
-export const Header = () => {
+type HeaderProps = {
+  title: string;
+};
+
+export const Header = ({ title }: HeaderProps) => {
   return (
-    <div className="w-full h-[60px] bg-white flex items-center justify-start px-4">
-      <p className='text-[24px] font-rocket'>밥축</p>
+    <div className="w-full h-15 flex items-center justify-start px-4">
+      <p className="text-[24px] font-rocket">{title}</p>
     </div>
-  )
-}
+  );
+};

@@ -23,7 +23,8 @@ axiosInstance.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken')
-        const res = await axiosInstance.post('/auth/reissue', { refreshToken })
+
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/reissue`, { refreshToken })
         const { accessToken, refreshToken: newRefreshToken } = res.data.data
 
         localStorage.setItem('accessToken', accessToken)

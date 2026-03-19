@@ -46,7 +46,7 @@ export function Input({ label, type, value, onChange, maxLength, inputMode }: In
           type="button"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => setShow(prev => !prev)}
-          className="absolute right-2 bottom-[20px] text-[#8B95A1] active:opacity-60 transition-opacity"
+          className="absolute right-2 bottom-5 text-[#8B95A1] active:opacity-60 transition-opacity"
         >
           {show ? (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B95A1" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -64,9 +64,9 @@ export function Input({ label, type, value, onChange, maxLength, inputMode }: In
         </button>
       )}
 
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-[#E5E8EB]" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-[#E5E8EB]" />
       <div
-        className="absolute bottom-0 left-0 h-[2px] bg-primary transition-all duration-200"
+        className="absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200"
         style={{ width: focused ? '100%' : '0%' }}
       />
     </div>
