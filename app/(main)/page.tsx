@@ -1,15 +1,15 @@
 import { Header } from "@/components/Header";
+import { HomeBanner } from "@/components/home/HomeBanner";
+import { HomeMenu } from "@/components/home/HomeMenu";
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <Header title="밥축"/>
-      {/* <p className="font-pretendard font-normal">프리텐다드 Regular (400)</p>
-      <p className="font-pretendard font-medium">프리텐다드 Medium (500)</p>
-      <p className="font-pretendard font-semibold">프리텐다드 SemiBold (600)</p>
-      <p className="font-pretendard font-bold">프리텐다드 Bold (700)</p>
-      <p className="font-pretendard font-extrabold">프리텐다드 ExtraBold (800)</p>
-      <p className="font-rocket text-[85px] flex items-center justify-center">밥축</p> */}
+      <div className="px-6">
+        <HomeBanner />
+      </div>
+        <HomeMenu />
     </div>
   )
-} 
+}

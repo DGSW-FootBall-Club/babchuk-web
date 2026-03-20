@@ -3,7 +3,7 @@ import { Shimmer } from "../Shimmer";
 
 export function LoadingSkeleton() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#F0F2F5]">
+    <div className="flex flex-col min-h-screen bg-[#ffffff]">
       <Header title="MY" />
       <div className="flex flex-col md:flex-row flex-1 p-4 gap-4">
         <div className="md:w-115 shrink-0 bg-white rounded-2xl p-6 flex flex-col gap-4">
