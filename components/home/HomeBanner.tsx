@@ -6,12 +6,12 @@ import { useEffect, useState, useRef } from "react";
 const banners = [
   {
     bg: "url(/icons/banner.svg)",
-    title: "대소고 FC\n 공식 플랫폼에 오신 것을 환영합니다!",
+    title: "대소고 FC\n 공식 플랫폼에 오신 것을 환영해요!",
     href: "/magazine",
   },
   {
     bg: "url(/icons/school.svg)",
-    title: "밥 먹고 축구 신청하기\n지금 바로 참여해요!",
+    title: "밥 먹고 축구 할사람?\n지금 바로 참여해요!",
     href: "/schedule",
   },
 ];

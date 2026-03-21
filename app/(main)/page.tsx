@@ -8,8 +8,8 @@ export default function Home() {
       <Header title="밥축"/>
       <div className="px-6">
         <HomeBanner />
-      </div>
         <HomeMenu />
+      </div>
     </div>
   )
 }

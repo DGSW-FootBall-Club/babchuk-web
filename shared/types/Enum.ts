@@ -1,5 +1,6 @@
 export type SkillType = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT'
 export type GenderType = 'MALE' | 'FEMALE'
+export type MatchStatus = 'OPEN' | 'CLOSED' | 'FINISHED'
 
 export const SkillTypeLabel = {
   BEGINNER: '초급',
@@ -10,4 +11,10 @@ export const SkillTypeLabel = {
 export const GenderTypeLabel = {
   MALE: '남자',
   FEMALE: '여자',
+} as const
+
+export const MatchStatusLabel = {
+  OPEN: '모집 중',
+  CLOSED: '모집 마감',
+  FINISHED: '경기 종료',
 } as const
