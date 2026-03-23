@@ -61,7 +61,7 @@ export function DatePickerModal({ value, onChange, onClose }: DatePickerModalPro
     <CenterModal onClose={onClose}>
       <div className="px-5 pt-6 pb-6">
         <div className="flex items-center justify-between mb-5">
-          <p className="text-[17px] font-bold font-pretendard text-[#191F28]">
+          <p className="text-lg font-bold text-[#191F28]">
             {viewYear}년 {viewMonth + 1}월
           </p>
           <div className="flex gap-1.5">
@@ -87,7 +87,7 @@ export function DatePickerModal({ value, onChange, onClose }: DatePickerModalPro
         <div className="grid grid-cols-7 mb-2">
           {DAYS.map((d, i) => (
             <div key={d} className="flex items-center justify-center h-8">
-              <p className={`text-[12px] font-semibold font-pretendard ${
+              <p className={`text-xs font-semibold ${
                 i === 0 ? 'text-red-400' : i === 6 ? 'text-blue-400' : 'text-[#C4C9D1]'
               }`}>{d}</p>
             </div>
@@ -114,7 +114,7 @@ export function DatePickerModal({ value, onChange, onClose }: DatePickerModalPro
                   className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200"
                   style={{ backgroundColor: sel ? 'var(--color-primary)' : 'transparent' }}
                 >
-                  <p className={`text-[14px] font-pretendard font-medium ${
+                  <p className={`text-sm font-medium ${
                     past ? 'text-[#E5E8EB]' :
                     sel ? 'text-white font-bold' :
                     tod ? 'text-primary font-bold' :
@@ -133,7 +133,7 @@ export function DatePickerModal({ value, onChange, onClose }: DatePickerModalPro
         <button
           onClick={handleConfirm}
           disabled={!selected}
-          className="w-full py-4 rounded-2xl text-white font-pretendard font-semibold text-[15px] transition-all duration-150 active:scale-95 active:brightness-90 disabled:opacity-40"
+          className="w-full py-4 rounded-2xl text-white font-semibold text-base transition-all duration-150 active:scale-95 active:brightness-90 disabled:opacity-40"
           style={{ backgroundColor: 'var(--color-primary)' }}
         >
           선택

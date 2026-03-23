@@ -8,13 +8,13 @@ export default function MagazinePage() {
       </div>
 
       <div className="text-center px-6 pb-6">
-        <p className="text-[13px] text-[#8B95A1] font-pretendard mb-1">
+        <p className="text-sm text-[#8B95A1] mb-1">
           대소고 FC
         </p>
-        <p className="text-[26px] font-bold font-pretendard text-[#191F28] leading-tight mb-2">
+        <p className="text-2xl font-bold text-[#191F28] leading-tight mb-2">
           밥축 문화 가이드
         </p>
-        <p className="text-[14px] text-[#8B95A1] font-pretendard">
+        <p className="text-sm text-[#8B95A1]">
           존중하고 격려하고 함께 즐겨요
         </p>
       </div>
@@ -33,7 +33,7 @@ export default function MagazinePage() {
 
       <div className="flex flex-col gap-3 px-5 pb-12">
         <Section title="밥축이 뭐에요?">
-          <p className="text-[15px] text-[#4B5563] font-medium leading-relaxed">
+          <p className="text-base text-[#4B5563] font-medium leading-relaxed">
             밥축은 점심, 저녁을 먹고 남은 시간에 함께 축구를 즐갈수 있어요.{" "}
             <br />
             실력보다 즐거움을, 경쟁보다 함께하는 기쁨을 소중히 여겨요. 신청만
@@ -102,7 +102,7 @@ function Section({
 }) {
   return (
     <div className="bg-[#F8F9FB] rounded-2xl p-5">
-      <p className="text-[17px] font-rocket text-[#191F28] mb-3">{title}</p>
+      <p className="text-lg font-rocket text-[#191F28] mb-3">{title}</p>
       {children}
     </div>
   );
@@ -114,7 +114,7 @@ function BulletList({ items }: { items: string[] }) {
       {items.map((item, index) => (
         <li
           key={index}
-          className="flex items-start gap-2 text-[14px] text-[#4B5563] font-medium leading-relaxed"
+          className="flex items-start gap-2 text-sm text-[#4B5563] font-medium leading-relaxed"
         >
           <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
           {item}

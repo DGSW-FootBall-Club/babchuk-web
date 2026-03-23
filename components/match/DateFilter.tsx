@@ -77,7 +77,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
               }`}
             >
               <p
-                className={`text-[17px] font-bold font-pretendard leading-none ${
+                className={`text-lg font-bold leading-none ${
                   active
                     ? "text-white"
                     : isSun
@@ -90,7 +90,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
                 {d.getDate()}
               </p>
               <p
-                className={`text-[11px] font-semibold font-pretendard ${
+                className={`text-xs font-semibold ${
                   active
                     ? "text-white/80"
                     : isSun

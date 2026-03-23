@@ -46,7 +46,7 @@
             <Button type="submit" disabled={!isValid || isLoading}>
               {isLoading ? "로그인 하는중..." : "로그인"}
             </Button>
-            <p className="text-center text-sm text-[#8B95A1] font-pretendard">
+            <p className="text-center text-sm text-[#8B95A1]">
               계정이 없다면?{" "}
               <button
                 type="button"

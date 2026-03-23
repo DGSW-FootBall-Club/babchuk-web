@@ -89,7 +89,7 @@ export const HomeBanner = () => {
                 className="relative z-10 p-5 flex flex-col justify-end h-full"
                 style={{ minHeight: "230px" }}
               >
-                <p className="text-white font-bold font-pretendard text-[22px] leading-tight whitespace-pre-line">
+                <p className="text-white font-bold text-2xl leading-tight whitespace-pre-line">
                   {banner.title}
                 </p>
               </div>

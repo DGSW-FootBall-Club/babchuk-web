@@ -25,7 +25,7 @@ export const HomeMenu = () => {
             height={24}
             className="w-6 h-6 md:w-8 md:h-8"
           />
-          <p className="text-[10px] md:text-xs font-rocket text-center leading-tight">
+          <p className="text-xs md:text-xs font-rocket text-center leading-tight">
             {item.label}
           </p>
         </Link>

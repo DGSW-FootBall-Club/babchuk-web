@@ -18,7 +18,7 @@ export function OptionSelector<T extends string>({
 }: OptionSelectorProps<T>) {
   return (
     <div>
-      <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
+      <p className="text-sm font-semibold text-[#191F28] mb-3">
         {title}
       </p>
       <div
@@ -29,7 +29,7 @@ export function OptionSelector<T extends string>({
           <button
             key={opt.value}
             onClick={() => onChange(opt.value)}
-            className="h-12 rounded-xl border font-pretendard text-[15px] font-medium transition-all duration-200 active:scale-95"
+            className="h-12 rounded-xl border text-base font-medium transition-all duration-200 active:scale-95"
             style={{
               borderColor:
                 selected === opt.value ? "var(--color-primary)" : "#E5E8EB",

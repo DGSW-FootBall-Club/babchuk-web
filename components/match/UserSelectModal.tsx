@@ -30,7 +30,7 @@ export function UserSelectModal({
   return (
     <CenterModal onClose={onClose}>
       <div className="flex items-center justify-between px-5 py-4 border-b border-[#F2F4F6]">
-        <p className="text-[17px] font-bold font-pretendard text-[#191F28]">
+        <p className="text-lg font-bold text-[#191F28]">
           {title}
         </p>
         <button
@@ -55,7 +55,7 @@ export function UserSelectModal({
       <div className="overflow-y-auto max-h-100">
         {isLoading && (
           <div className="flex items-center justify-center py-10">
-            <p className="text-[14px] text-[#8B95A1] font-pretendard">
+            <p className="text-sm text-[#8B95A1]">
               불러오는 중...
             </p>
           </div>
@@ -80,10 +80,10 @@ export function UserSelectModal({
                 />
               </div>
               <div className="text-left">
-                <p className="text-[14px] font-medium font-pretendard text-[#191F28]">
+                <p className="text-sm font-medium text-[#191F28]">
                   {user.nickname}
                 </p>
-                <p className="text-[12px] text-[#8B95A1] font-pretendard">
+                <p className="text-xs text-[#8B95A1]">
                   {user.grade}학번
                 </p>
               </div>

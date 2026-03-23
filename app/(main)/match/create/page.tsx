@@ -32,7 +32,7 @@ function Required() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-[13px] font-semibold font-pretendard text-[#8B95A1] mb-3">
+    <p className="text-sm font-semibold text-[#8B95A1] mb-3">
       {children}
     </p>
   );
@@ -91,7 +91,7 @@ export default function CreateMatchPage() {
       </div>
 
       <div className="px-6 pt-2 pb-8">
-        <p className="text-[28px] font-rocket">매치 생성</p>
+        <p className="text-3xl font-rocket">매치 생성</p>
       </div>
 
       <form
@@ -122,7 +122,7 @@ export default function CreateMatchPage() {
             className="w-full flex items-center justify-between bg-[#F8F9FB] rounded-2xl px-4 py-4 transition-all duration-150 active:scale-[0.98] active:brightness-95"
           >
             <p
-              className={`text-[14px] font-pretendard ${values.matchDate ? "text-[#191F28] font-semibold" : "text-[#C4C9D1]"}`}
+              className={`text-sm ${values.matchDate ? "text-[#191F28] font-semibold" : "text-[#C4C9D1]"}`}
             >
               {values.matchDate
                 ? formatDate(values.matchDate)
@@ -160,12 +160,12 @@ export default function CreateMatchPage() {
                   }`}
                 >
                   <p
-                    className={`text-[13px] font-semibold font-pretendard ${active ? "text-white" : "text-[#191F28]"}`}
+                    className={`text-sm font-semibold ${active ? "text-white" : "text-[#191F28]"}`}
                   >
                     {label}
                   </p>
                   <p
-                    className={`text-[11px] font-pretendard ${active ? "text-white/70" : "text-[#8B95A1]"}`}
+                    className={`text-xs ${active ? "text-white/70" : "text-[#8B95A1]"}`}
                   >
                     {sub}
                   </p>
@@ -187,7 +187,7 @@ export default function CreateMatchPage() {
                   key={value}
                   type="button"
                   onClick={() => handleChange("durationMinutes", value)}
-                  className={`py-3.5 rounded-2xl text-[12px] font-pretendard font-semibold transition-all duration-150 active:scale-95 ${
+                  className={`py-3.5 rounded-2xl text-xs font-semibold transition-all duration-150 active:scale-95 ${
                     active
                       ? "bg-primary text-white"
                       : "bg-[#F8F9FB] text-[#191F28]"
@@ -236,14 +236,14 @@ export default function CreateMatchPage() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <p className="text-red-300 text-[24px]">?</p>
+                  <p className="text-red-300 text-2xl">?</p>
                 )}
               </div>
               <div className="text-center">
-                <p className="text-[11px] text-red-400 font-pretendard font-semibold mb-0.5">
+                <p className="text-xs text-red-400 font-semibold mb-0.5">
                   A팀 캡틴
                 </p>
-                <p className="text-[13px] font-semibold font-pretendard text-[#191F28]">
+                <p className="text-sm font-semibold text-[#191F28]">
                   {captainA ? captainA.nickname : "선택하기"}
                 </p>
               </div>
@@ -262,14 +262,14 @@ export default function CreateMatchPage() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <p className="text-blue-300 text-[24px]">?</p>
+                  <p className="text-blue-300 text-2xl">?</p>
                 )}
               </div>
               <div className="text-center">
-                <p className="text-[11px] text-blue-400 font-pretendard font-semibold mb-0.5">
+                <p className="text-xs text-blue-400 font-semibold mb-0.5">
                   B팀 캡틴
                 </p>
-                <p className="text-[13px] font-semibold font-pretendard text-[#191F28]">
+                <p className="text-sm font-semibold text-[#191F28]">
                   {captainB ? captainB.nickname : "선택하기"}
                 </p>
               </div>

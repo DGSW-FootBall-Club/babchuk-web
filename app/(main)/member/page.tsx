@@ -23,17 +23,17 @@ export default function MemberPage() {
             <Image src="/icons/club.svg" alt="club" width={32} height={32} />
           </div>
           <div>
-            <p className="text-[17px] font-bold font-pretendard text-[#191F28]">
+            <p className="text-lg font-bold text-[#191F28]">
               대소고 FC
             </p>
-            <p className="text-[13px] text-[#8B95A1] font-pretendard">
+            <p className="text-sm text-[#8B95A1]">
               대구소프트웨어마이스터고
             </p>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-[13px] text-[#8B95A1] font-pretendard">총 멤버</p>
-          <p className="text-[17px] font-bold font-pretendard text-[#191F28]">
+          <p className="text-sm text-[#8B95A1]">총 멤버</p>
+          <p className="text-lg font-bold text-[#191F28]">
             {users?.length ?? "-"}명
           </p>
         </div>
@@ -42,14 +42,14 @@ export default function MemberPage() {
       <div className="px-4 py-3">
         <div className="bg-white rounded-2xl overflow-hidden border border-[#F2F4F6]">
           <div className="grid grid-cols-[1fr_80px_60px_60px] px-4 py-3 bg-[#F8F9FB] border-b border-[#F2F4F6]">
-            <p className="text-[12px] text-[#8B95A1] font-pretendard">이름</p>
-            <p className="text-[12px] text-[#8B95A1] font-pretendard text-center">
+            <p className="text-xs text-[#8B95A1]">이름</p>
+            <p className="text-xs text-[#8B95A1] text-center">
               학번
             </p>
-            <p className="text-[12px] text-[#8B95A1] font-pretendard text-center">
+            <p className="text-xs text-[#8B95A1] text-center">
               실력
             </p>
-            <p className="text-[12px] text-[#8B95A1] font-pretendard text-center">
+            <p className="text-xs text-[#8B95A1] text-center">
               성별
             </p>
           </div>
@@ -70,17 +70,17 @@ export default function MemberPage() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <p className="text-[14px] font-medium font-pretendard text-[#191F28]">
+                  <p className="text-sm font-medium text-[#191F28]">
                     {user.nickname}
                   </p>
                 </div>
-                <p className="text-[14px] font-pretendard text-[#191F28] text-center">
+                <p className="text-sm text-[#191F28] text-center">
                   {user.grade}
                 </p>
-                <p className="text-[13px] font-pretendard text-[#191F28] text-center">
+                <p className="text-sm text-[#191F28] text-center">
                   {SkillTypeLabel[user.skillType]}
                 </p>
-                <p className="text-[13px] font-pretendard text-[#191F28] text-center">
+                <p className="text-sm text-[#191F28] text-center">
                   {GenderTypeLabel[user.gender]}
                 </p>
               </div>

@@ -34,7 +34,7 @@ export function MatchCard({ match }: MatchCardProps) {
       onClick={() => router.push(`/match/${match.id}`)}
     >
       <div
-        className={`absolute top-0 left-0 px-3 py-1.5 rounded-tl-xl rounded-br-xl text-[11px] font-bold font-pretendard ${statusStyle[match.status]}`}
+        className={`absolute top-0 left-0 px-3 py-1.5 rounded-tl-xl rounded-br-xl text-xs font-bold ${statusStyle[match.status]}`}
       >
         {MatchStatusLabel[match.status]}
       </div>
@@ -46,16 +46,16 @@ export function MatchCard({ match }: MatchCardProps) {
             alt={match.teamACaptain.nickname}
             className="w-14 h-14 rounded-full object-cover ring-2 ring-white"
           />
-          <p className="text-[12px] font-pretendard font-semibold text-[#8B95A1]">
+          <p className="text-xs font-semibold text-[#8B95A1]">
             A팀
           </p>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <p className="text-[24px] font-black font-pretendard text-[#191F28] tracking-tight">
+          <p className="text-2xl font-black text-[#191F28] tracking-tight">
             {formatMatchTime(match.matchTime)}
           </p>
-          <p className="text-[12px] font-pretendard text-[#8B95A1]">
+          <p className="text-xs text-[#8B95A1]">
             {formatMatchDate(match.matchDate)}
           </p>
         </div>
@@ -66,7 +66,7 @@ export function MatchCard({ match }: MatchCardProps) {
             alt={match.teamBCaptain.nickname}
             className="w-14 h-14 rounded-full object-cover ring-2 ring-white"
           />
-          <p className="text-[12px] font-pretendard font-semibold text-[#8B95A1]">
+          <p className="text-xs font-semibold text-[#8B95A1]">
             B팀
           </p>
         </div>

@@ -25,8 +25,8 @@ export function MatchList({ selectedDate }: MatchListProps) {
   if (filtered.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 gap-2">
-        <p className="text-[16px] font-pretendard font-semibold text-[#191F28]">매치가 없어요</p>
-        <p className="text-[13px] font-pretendard text-[#8B95A1]">다른 날짜를 선택해보세요!</p>
+        <p className="text-base font-semibold text-[#191F28]">매치가 없어요</p>
+        <p className="text-sm text-[#8B95A1]">다른 날짜를 선택해보세요!</p>
       </div>
     )
   }

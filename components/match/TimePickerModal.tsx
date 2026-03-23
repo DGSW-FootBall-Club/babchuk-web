@@ -94,7 +94,7 @@ export function TimePickerModal({
       `}</style>
 
       <div className="px-6 pt-5 pb-6">
-        <p className="text-[16px] font-bold font-pretendard text-[#191F28] mb-5">
+        <p className="text-base font-bold text-[#191F28] mb-5">
           시간 선택
         </p>
 
@@ -112,7 +112,7 @@ export function TimePickerModal({
             </WheelPickerWrapper>
           </div>
 
-          <p className="text-[22px] font-bold text-[#C4C9D1] self-center">:</p>
+          <p className="text-2xl font-bold text-[#C4C9D1] self-center">:</p>
 
           <div className="flex-1">
             <WheelPickerWrapper>
@@ -130,7 +130,7 @@ export function TimePickerModal({
 
         <button
           onClick={handleConfirm}
-          className="w-full py-3.5 rounded-2xl text-white font-pretendard font-semibold text-[15px] transition-all duration-150 active:scale-95 active:brightness-90"
+          className="w-full py-3.5 rounded-2xl text-white font-semibold text-base transition-all duration-150 active:scale-95 active:brightness-90"
           style={{ backgroundColor: "var(--color-primary)" }}
         >
           선택

@@ -40,7 +40,7 @@ export default function SignupPage() {
       <BackButton />
 
       <div className="mb-8">
-        <p className="text-[32px] font-rocket">회원가입</p>
+        <p className="text-3xl font-rocket">회원가입</p>
       </div>
 
       <div className="flex items-center gap-4 mb-8">
@@ -64,13 +64,13 @@ export default function SignupPage() {
           />
         </label>
         <div>
-          <p className="text-sm font-medium text-[#191F28] font-pretendard">
+          <p className="text-sm font-medium text-[#191F28]">
             프로필 이미지 선택
-            <span className="text-xs text-[#8B95A1] font-pretendard ml-1">
+            <span className="text-xs text-[#8B95A1] ml-1">
               (선택사항)
             </span>
           </p>
-          <p className="text-xs text-[#8B95A1] font-pretendard">
+          <p className="text-xs text-[#8B95A1]">
             갤러리에서 사진을 선택하거나
             <br />
             카메라로 촬영하세요
@@ -134,7 +134,7 @@ export default function SignupPage() {
 
         <div className="flex flex-col gap-6 mb-12">
           <div>
-            <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
+            <p className="text-sm font-semibold text-[#191F28] mb-3">
               축구 실력
               <Required />
             </p>
@@ -146,7 +146,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#191F28] font-pretendard mb-3">
+            <p className="text-sm font-semibold text-[#191F28] mb-3">
               성별
               <Required />
             </p>
