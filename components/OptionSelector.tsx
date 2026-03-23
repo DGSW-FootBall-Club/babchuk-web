@@ -22,7 +22,7 @@ export function OptionSelector<T extends string>({
         {title}
       </p>
       <div
-        className="grid gap-2"
+        className="grid gap-4"
         style={{ gridTemplateColumns: `repeat(${options.length}, 1fr)` }}
       >
         {options.map((opt) => (

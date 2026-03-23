@@ -1,123 +1,141 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { CenterModal } from '@/components/CenterModal'
+import "@ncdai/react-wheel-picker/style.css";
+import { useState } from "react";
+import {
+  WheelPicker,
+  WheelPickerWrapper,
+  type WheelPickerOption,
+} from "@ncdai/react-wheel-picker";
+import { CenterModal } from "@/components/CenterModal";
 
 interface TimePickerModalProps {
-  startTime: string
-  endTime: string
-  onConfirm: (start: string, end: string, duration: number) => void
-  onClose: () => void
-}
-
-const timeToMinutes = (time: string) => {
-  const [h, m] = time.split(':').map(Number)
-  return h * 60 + m
+  startTime: string;
+  onConfirm: (start: string) => void;
+  onClose: () => void;
 }
 
 export const formatTime = (time: string) => {
-  const [h, m] = time.split(':').map(Number)
-  const ampm = h < 12 ? '오전' : '오후'
-  const hour = h === 0 ? 12 : h > 12 ? h - 12 : h
-  return `${ampm} ${hour}:${String(m).padStart(2, '0')}`
+  if (!time) return "";
+  const [h, m] = time.split(":").map(Number);
+  const ampm = h < 12 ? "오전" : "오후";
+  const hour = h === 0 ? 12 : h > 12 ? h - 12 : h;
+  return `${ampm} ${hour}:${String(m).padStart(2, "0")}`;
+};
+
+const hourOptions: WheelPickerOption<number>[] = Array.from(
+  { length: 24 },
+  (_, i) => ({
+    label: i.toString().padStart(2, "0"),
+    value: i,
+  }),
+);
+
+const minuteOptions: WheelPickerOption<number>[] = Array.from(
+  { length: 60 },
+  (_, i) => ({
+    label: i.toString().padStart(2, "0"),
+    value: i,
+  }),
+);
+
+function getKSTNow() {
+  const now = new Date();
+  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+  return { h: kst.getHours(), m: kst.getMinutes() };
 }
 
-const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
-const minutes = ['00', '10', '20', '30', '40', '50']
+export function TimePickerModal({
+  startTime,
+  onConfirm,
+  onClose,
+}: TimePickerModalProps) {
+  const getInitValues = () => {
+    if (startTime) {
+      return {
+        h: Number(startTime.split(":")[0]),
+        m: Number(startTime.split(":")[1]),
+      };
+    }
+    return getKSTNow();
+  };
 
-export function TimePickerModal({ startTime, endTime, onConfirm, onClose }: TimePickerModalProps) {
-  const [tab, setTab] = useState<'start' | 'end'>('start')
-  const [start, setStart] = useState(startTime || '15:00')
-  const [end, setEnd] = useState(endTime || '16:00')
+  const { h: initH, m: initM } = getInitValues();
 
-  const currentHour = tab === 'start' ? start.split(':')[0] : end.split(':')[0]
-  const currentMinute = tab === 'start' ? start.split(':')[1] : end.split(':')[1]
-
-  const setHour = (h: string) => {
-    if (tab === 'start') setStart(`${h}:${start.split(':')[1]}`)
-    else setEnd(`${h}:${end.split(':')[1]}`)
-  }
-
-  const setMinute = (m: string) => {
-    if (tab === 'start') setStart(`${start.split(':')[0]}:${m}`)
-    else setEnd(`${end.split(':')[0]}:${m}`)
-  }
+  const [hour, setHour] = useState<number>(initH);
+  const [minute, setMinute] = useState<number>(initM);
 
   const handleConfirm = () => {
-    const duration = timeToMinutes(end) - timeToMinutes(start)
-    if (duration <= 0) {
-      alert('종료 시간이 시작 시간보다 늦어야 해요')
-      return
-    }
-    onConfirm(start, end, duration)
-    onClose()
-  }
+    onConfirm(
+      `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`,
+    );
+    onClose();
+  };
 
   return (
     <CenterModal onClose={onClose}>
-      <div className="px-5 pb-6">
-        <div className="flex items-center justify-between py-4">
-          <p className="text-[17px] font-bold font-pretendard text-[#191F28]">시간 선택</p>
-          <button onClick={handleConfirm} className="text-[15px] font-semibold font-pretendard text-primary active:opacity-60">확인</button>
-        </div>
+      <style>{`
+        .rwp [data-rwp-highlight-wrapper] {
+          background: #F2F4F6;
+          border-radius: 14px;
+          border: none;
+        }
+        .rwp [data-rwp-option] {
+          font-size: 18px;
+          color: #C4C9D1;
+          font-weight: 400;
+          padding: 0 8px;
+        }
+        .rwp [data-rwp-highlight-item] {
+          font-size: 22px;
+          font-weight: 700;
+          color: #191F28;
+        }
+      `}</style>
 
-        {/* 탭 */}
-        <div className="grid grid-cols-2 bg-[#F2F4F6] rounded-2xl p-1 mb-5">
-          {(['start', 'end'] as const).map(t => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setTab(t)}
-              className={`py-2.5 rounded-xl text-[13px] font-semibold font-pretendard transition-all ${
-                tab === t ? 'bg-white text-[#191F28] shadow-sm' : 'text-[#8B95A1]'
-              }`}
-            >
-              {t === 'start' ? `시작 ${formatTime(start)}` : `종료 ${formatTime(end)}`}
-            </button>
-          ))}
-        </div>
+      <div className="px-6 pt-5 pb-6">
+        <p className="text-[16px] font-bold font-pretendard text-[#191F28] mb-5">
+          시간 선택
+        </p>
 
-        {/* 시간 그리드 */}
-        <div className="flex gap-3">
-          {/* 시 */}
+        <div className="rwp flex gap-2 justify-center mb-6">
           <div className="flex-1">
-            <p className="text-[11px] text-[#8B95A1] font-pretendard text-center mb-2">시</p>
-            <div className="grid grid-cols-4 gap-1.5">
-              {hours.map(h => (
-                <button
-                  key={h}
-                  type="button"
-                  onClick={() => setHour(h)}
-                  className={`h-9 rounded-xl text-[13px] font-pretendard font-medium transition-all active:scale-95 ${
-                    currentHour === h ? 'bg-primary text-white' : 'bg-[#F2F4F6] text-[#191F28]'
-                  }`}
-                >
-                  {h}
-                </button>
-              ))}
-            </div>
+            <WheelPickerWrapper>
+              <WheelPicker
+                options={hourOptions}
+                defaultValue={initH}
+                onValueChange={(v) => setHour(v as number)}
+                infinite
+                visibleCount={12}
+                optionItemHeight={44}
+              />
+            </WheelPickerWrapper>
           </div>
 
-          {/* 분 */}
-          <div className="w-[80px]">
-            <p className="text-[11px] text-[#8B95A1] font-pretendard text-center mb-2">분</p>
-            <div className="flex flex-col gap-1.5">
-              {minutes.map(m => (
-                <button
-                  key={m}
-                  type="button"
-                  onClick={() => setMinute(m)}
-                  className={`h-9 rounded-xl text-[13px] font-pretendard font-medium transition-all active:scale-95 ${
-                    currentMinute === m ? 'bg-primary text-white' : 'bg-[#F2F4F6] text-[#191F28]'
-                  }`}
-                >
-                  {m}
-                </button>
-              ))}
-            </div>
+          <p className="text-[22px] font-bold text-[#C4C9D1] self-center">:</p>
+
+          <div className="flex-1">
+            <WheelPickerWrapper>
+              <WheelPicker
+                options={minuteOptions}
+                defaultValue={initM}
+                onValueChange={(v) => setMinute(v as number)}
+                infinite
+                visibleCount={12}
+                optionItemHeight={44}
+              />
+            </WheelPickerWrapper>
           </div>
         </div>
+
+        <button
+          onClick={handleConfirm}
+          className="w-full py-3.5 rounded-2xl text-white font-pretendard font-semibold text-[15px] transition-all duration-150 active:scale-95 active:brightness-90"
+          style={{ backgroundColor: "var(--color-primary)" }}
+        >
+          선택
+        </button>
       </div>
     </CenterModal>
-  )
+  );
 }

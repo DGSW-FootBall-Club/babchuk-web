@@ -9,99 +9,135 @@ interface DatePickerModalProps {
   onClose: () => void
 }
 
+const DAYS = ['일', '월', '화', '수', '목', '금', '토']
+
 export function DatePickerModal({ value, onChange, onClose }: DatePickerModalProps) {
   const today = new Date()
-  const [viewYear, setViewYear] = useState(today.getFullYear())
-  const [viewMonth, setViewMonth] = useState(today.getMonth())
-  const selected = value ? new Date(value) : null
+  const init = value ? new Date(value) : today
+  const [viewYear, setViewYear] = useState(init.getFullYear())
+  const [viewMonth, setViewMonth] = useState(init.getMonth())
+  const [selected, setSelected] = useState(value)
 
   const firstDay = new Date(viewYear, viewMonth, 1).getDay()
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate()
-  const days = ['일', '월', '화', '수', '목', '금', '토']
 
-  const handlePrev = () => {
-    if (viewMonth === 0) { setViewMonth(11); setViewYear(v => v - 1) }
+  const prevMonth = () => {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11) }
     else setViewMonth(m => m - 1)
   }
-
-  const handleNext = () => {
-    if (viewMonth === 11) { setViewMonth(0); setViewYear(v => v + 1) }
+  const nextMonth = () => {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0) }
     else setViewMonth(m => m + 1)
   }
 
-  const handleSelect = (day: number) => {
-    const date = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-    onChange(date)
-    onClose()
+  const toStr = (y: number, m: number, d: number) =>
+    `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+
+  const isToday = (d: number) =>
+    d === today.getDate() && viewMonth === today.getMonth() && viewYear === today.getFullYear()
+
+  const isSelected = (d: number) => selected === toStr(viewYear, viewMonth, d)
+
+  const isPast = (d: number) => {
+    const date = new Date(viewYear, viewMonth, d)
+    const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    return date < todayStart
   }
 
-  const isSelected = (day: number) =>
-    selected?.getFullYear() === viewYear &&
-    selected?.getMonth() === viewMonth &&
-    selected?.getDate() === day
-
-  const isToday = (day: number) =>
-    today.getFullYear() === viewYear &&
-    today.getMonth() === viewMonth &&
-    today.getDate() === day
-
-  const isPast = (day: number) => {
-    const d = new Date(viewYear, viewMonth, day)
-    d.setHours(0, 0, 0, 0)
-    const t = new Date()
-    t.setHours(0, 0, 0, 0)
-    return d < t
+  const handleSelect = (d: number) => {
+    if (isPast(d)) return
+    setSelected(toStr(viewYear, viewMonth, d))
   }
+
+  const handleConfirm = () => {
+    if (selected) { onChange(selected); onClose() }
+  }
+
+  const cells: (number | null)[] = []
+  for (let i = 0; i < firstDay; i++) cells.push(null)
+  for (let i = 1; i <= daysInMonth; i++) cells.push(i)
 
   return (
     <CenterModal onClose={onClose}>
-      <div className="px-5 pb-6">
-        <div className="flex items-center justify-between py-4">
-          <button onClick={handlePrev} className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F2F4F6] active:brightness-90">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#191F28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <p className="text-[16px] font-bold font-pretendard text-[#191F28]">{viewYear}년 {viewMonth + 1}월</p>
-          <button onClick={handleNext} className="w-9 h-9 flex items-center justify-center rounded-full bg-[#F2F4F6] active:brightness-90">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#191F28" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
+      <div className="px-5 pt-6 pb-6">
+        <div className="flex items-center justify-between mb-5">
+          <p className="text-[17px] font-bold font-pretendard text-[#191F28]">
+            {viewYear}년 {viewMonth + 1}월
+          </p>
+          <div className="flex gap-1.5">
+            <button
+              onClick={prevMonth}
+              className="w-8 h-8 flex items-center justify-center rounded-full transition-all duration-150 active:scale-90 active:bg-[#F2F4F6]"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B95A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+              </svg>
+            </button>
+            <button
+              onClick={nextMonth}
+              className="w-8 h-8 flex items-center justify-center rounded-full transition-all duration-150 active:scale-90 active:bg-[#F2F4F6]"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B95A1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-7 mb-2">
-          {days.map((d, i) => (
-            <p key={d} className={`text-center text-[12px] font-medium font-pretendard py-1 ${i === 0 ? 'text-red-400' : i === 6 ? 'text-blue-400' : 'text-[#8B95A1]'}`}>{d}</p>
+          {DAYS.map((d, i) => (
+            <div key={d} className="flex items-center justify-center h-8">
+              <p className={`text-[12px] font-semibold font-pretendard ${
+                i === 0 ? 'text-red-400' : i === 6 ? 'text-blue-400' : 'text-[#C4C9D1]'
+              }`}>{d}</p>
+            </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-y-1">
-          {Array.from({ length: firstDay }).map((_, i) => <div key={`e-${i}`} />)}
-          {Array.from({ length: daysInMonth }).map((_, i) => {
-            const day = i + 1
-            const past = isPast(day)
-            const sel = isSelected(day)
-            const tod = isToday(day)
-            const isSun = (firstDay + i) % 7 === 0
-            const isSat = (firstDay + i) % 7 === 6
+        <div className="grid grid-cols-7 gap-y-1 mb-5">
+          {cells.map((d, idx) => {
+            if (!d) return <div key={`empty-${idx}`} />
+            const past = isPast(d)
+            const sel = isSelected(d)
+            const tod = isToday(d)
+            const col = idx % 7
 
             return (
               <button
-                key={day}
+                key={d}
                 type="button"
+                onClick={() => handleSelect(d)}
                 disabled={past}
-                onClick={() => handleSelect(day)}
-                className={`flex items-center justify-center h-9 rounded-full text-[13px] font-pretendard transition-all
-                  ${sel ? 'bg-primary text-white font-bold' : ''}
-                  ${!sel && tod ? 'border-2 border-primary text-primary font-bold' : ''}
-                  ${!sel && !tod && isSun ? 'text-red-400' : ''}
-                  ${!sel && !tod && isSat ? 'text-blue-400' : ''}
-                  ${!sel && !tod && !isSun && !isSat ? 'text-[#191F28]' : ''}
-                  ${past ? 'opacity-30 cursor-not-allowed' : 'active:brightness-90'}
-                `}
+                className="flex items-center justify-center transition-all duration-150 active:scale-75"
               >
-                {day}
+                <div
+                  className="w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200"
+                  style={{ backgroundColor: sel ? 'var(--color-primary)' : 'transparent' }}
+                >
+                  <p className={`text-[14px] font-pretendard font-medium ${
+                    past ? 'text-[#E5E8EB]' :
+                    sel ? 'text-white font-bold' :
+                    tod ? 'text-primary font-bold' :
+                    col === 0 ? 'text-red-400' :
+                    col === 6 ? 'text-blue-400' :
+                    'text-[#191F28]'
+                  }`}>
+                    {d}
+                  </p>
+                </div>
               </button>
             )
           })}
         </div>
+
+        <button
+          onClick={handleConfirm}
+          disabled={!selected}
+          className="w-full py-4 rounded-2xl text-white font-pretendard font-semibold text-[15px] transition-all duration-150 active:scale-95 active:brightness-90 disabled:opacity-40"
+          style={{ backgroundColor: 'var(--color-primary)' }}
+        >
+          선택
+        </button>
       </div>
     </CenterModal>
   )

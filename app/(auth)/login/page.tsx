@@ -51,7 +51,7 @@
               <button
                 type="button"
                 onClick={() => router.push("/signup")}
-                className="text-primary font-semibold underline"
+                className="text-primary font-semibold underline cursor-pointer"
               >
                 회원가입
               </button>

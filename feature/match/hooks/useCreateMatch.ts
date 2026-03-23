@@ -10,7 +10,7 @@ export function useCreateMatch() {
     title: '',
     matchDate: '',
     matchTime: '',
-    teamSize: 14,
+    teamSize: 0,
     durationMinutes: 0,
     teamACaptainId: 0,
     teamBCaptainId: 0,
@@ -35,7 +35,7 @@ export function useCreateMatch() {
       setIsLoading(true)
       await matchApi.createMatch(values)
       queryClient.invalidateQueries({ queryKey: ['matches'] })
-      router.push('/schedule')
+      router.back()
     } catch (e: any) {
       alert(e.response?.data?.message ?? '매치 생성에 실패했어요')
     } finally {
