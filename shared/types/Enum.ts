@@ -18,3 +18,9 @@ export const MatchStatusLabel = {
   CLOSED: '모집 마감',
   FINISHED: '경기 종료',
 } as const
+
+export const statusStyle: Record<MatchStatus, string> = {
+  OPEN: "bg-[#009655] text-white",
+  CLOSED: "bg-[#C33431] text-white",
+  FINISHED: "bg-[#8B95A1] text-white",
+};

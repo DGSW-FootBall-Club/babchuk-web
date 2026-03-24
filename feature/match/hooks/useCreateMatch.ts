@@ -26,11 +26,13 @@ export function useCreateMatch() {
     values.matchDate.length > 0 &&
     values.matchTime.length > 0 &&
     values.durationMinutes > 0 &&
-    values.teamSize > 0 &&
+    values.teamSize >= 4 &&
+    values.teamSize % 2 === 0 &&
     values.teamACaptainId > 0 &&
     values.teamBCaptainId > 0
 
   const handleSubmit = async () => {
+    if (isLoading) return
     try {
       setIsLoading(true)
       await matchApi.createMatch(values)

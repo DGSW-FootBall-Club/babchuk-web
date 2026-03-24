@@ -1,46 +1,18 @@
 "use client";
 
-import { use } from "react";
+import { use, useState, useEffect } from "react";
 import { useMatch } from "@/feature/match/hooks/useMatch";
+import { useIsJoined } from "@/feature/match/hooks/useIsJoined";
+import { useMatchActions } from "@/feature/match/hooks/useMatchActions";
 import { BackButton } from "@/components/BackButton";
 import { MatchDetailSkeleton } from "@/components/match/MatchDetailSkeleton";
-import { MatchStatus, MatchStatusLabel } from "@/shared/types/Enum";
-import { UserResponse } from "@/feature/user/types/response/UserResponse";
-
-const statusStyle: Record<MatchStatus, string> = {
-  OPEN: "bg-[#009655] text-white",
-  CLOSED: "bg-orange-400 text-white",
-  FINISHED: "bg-[#8B95A1] text-white",
-};
-
-function formatMatchTime(time: string) {
-  const [h, m] = time.split(":").map(Number);
-  const ampm = h < 12 ? "오전" : "오후";
-  const hour = h === 0 ? 12 : h > 12 ? h - 12 : h;
-  return `${ampm} ${hour}:${String(m).padStart(2, "0")}`;
-}
-
-function formatMatchDate(date: string) {
-  const [year, month, day] = date.split("-").map(Number);
-  const d = new Date(year, month - 1, day);
-  const days = ["일", "월", "화", "수", "목", "금", "토"];
-  return `${d.getMonth() + 1}월 ${d.getDate()}일 ${days[d.getDay()]}요일`;
-}
-
-function PlayerAvatar({ user }: { user: UserResponse }) {
-  return (
-    <div className="flex flex-col items-center gap-1.5">
-      <img
-        src={user.profileImage}
-        alt={user.nickname}
-        className="w-14 h-14 rounded-full object-cover"
-      />
-      <p className="text-sm text-[#8B95A1] text-center">
-        {user.nickname}
-      </p>
-    </div>
-  );
-}
+import { Section } from "@/components/match/Section";
+import { PlayerAvatar } from "@/components/match/PlayerAvatar";
+import {
+  MatchStatusLabel,
+  statusStyle,
+} from "@/shared/types/Enum";
+import { formatMatchDate, formatMatchTime } from "@/shared/utils/formatMatch";
 
 export default function MatchDetailPage({
   params,
@@ -50,12 +22,34 @@ export default function MatchDetailPage({
   const { matchId: id } = use(params);
   const matchId = Number(id);
   const { match, isLoading } = useMatch(matchId);
+  const { isJoined } = useIsJoined(matchId);
+  const {
+    handleJoin,
+    handleCancel,
+    isLoading: actionLoading,
+  } = useMatchActions(matchId);
+  const [selectedTeam, setSelectedTeam] = useState<"A" | "B">("A");
+
+  const teamSize = match ? match.teamSize / 2 - 1 : 0;
+  const isTeamAFull = match ? match.teamA.members.length >= teamSize : false;
+  const isTeamBFull = match ? match.teamB.members.length >= teamSize : false;
+
+  useEffect(() => {
+    if (isTeamAFull && !isTeamBFull) setSelectedTeam("B");
+    if (isTeamBFull && !isTeamAFull) setSelectedTeam("A");
+  }, [isTeamAFull, isTeamBFull]);
 
   if (isLoading || !match) {
     return <MatchDetailSkeleton />;
   }
 
-  const allMembers = [...match.teamA.members, ...match.teamB.members];
+  const isTeamSelectDisabled =
+    isJoined || match.status === "CLOSED" || match.status === "FINISHED";
+
+  const maxMembers = Math.max(
+    match.teamA.members.length,
+    match.teamB.members.length,
+  );
 
   return (
     <div className="flex flex-col min-h-screen bg-white pb-10">
@@ -64,7 +58,7 @@ export default function MatchDetailPage({
         <img
           src="/icons/school.svg"
           alt="경기장"
-          className="w-full h-124 object-cover rounded-xl"
+          className="w-full aspect-video object-cover rounded-xl"
         />
       </div>
 
@@ -84,28 +78,18 @@ export default function MatchDetailPage({
           <p className="text-2xl font-black text-[#191F28] mb-1">
             대소고 FC 스타디움
           </p>
-          <p className="text-base text-[#8B95A1]">
-            {match.title}
-          </p>
+          <p className="text-base text-[#8B95A1]">{match.title}</p>
         </div>
 
-        {/* 매치 정보 */}
-        <div className="bg-[#F8F9FB] rounded-2xl px-4 py-4">
-          <p className="text-base font-bold text-[#191F28] mb-3">
-            매치 정보
-          </p>
+        <Section title="매치 정보">
           <div className="grid grid-cols-2 gap-y-3">
             <div className="flex items-center gap-2">
               <img src="/icons/person.svg" alt="레벨" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">
-                모든 레벨
-              </p>
+              <p className="text-base text-[#191F28]">모든 레벨</p>
             </div>
             <div className="flex items-center gap-2">
               <img src="/icons/gender.svg" alt="성별" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">
-                남녀 모두
-              </p>
+              <p className="text-base text-[#191F28]">남녀 모두</p>
             </div>
             <div className="flex items-center gap-2">
               <img src="/icons/clock.svg" alt="시간" className="w-4 h-4" />
@@ -116,75 +100,153 @@ export default function MatchDetailPage({
             <div className="flex items-center gap-2">
               <img src="/icons/stadium.svg" alt="경기" className="w-4 h-4" />
               <p className="text-base text-[#191F28]">
-                {match.teamSize}vs{match.teamSize}
+                {match.teamSize / 2}vs{match.teamSize / 2}
               </p>
             </div>
           </div>
-        </div>
+        </Section>
 
-        {/* 팀 설정 */}
-        <div>
-          <p className="text-base font-bold text-[#191F28] mb-3">
-            팀 설정
-          </p>
-          <div className="bg-[#1a7a3a] rounded-2xl px-6 py-5 relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-24 h-24 rounded-full border-2 border-white/20" />
-            </div>
-            <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/20" />
-            <div className="relative flex items-center justify-between">
-              <div className="flex flex-col items-center gap-2">
+        <Section title="팀 선택">
+          <div
+            className={`bg-[#009655] rounded-2xl px-8 py-6 relative overflow-hidden ${isTeamSelectDisabled ? "opacity-50" : ""}`}
+          >
+            <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/70" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-white/70 pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 border-2 border-white/70 border-t-0 rounded-b-full pointer-events-none" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-8 border-2 border-white/70 border-b-0 rounded-t-full pointer-events-none" />
+
+            <div className="relative flex items-center justify-between py-5 px-[10%]">
+              <button
+                onClick={() => setSelectedTeam("A")}
+                disabled={isTeamSelectDisabled || isTeamAFull}
+                className="flex flex-col items-center gap-2 disabled:cursor-not-allowed disabled:opacity-40"
+              >
                 <img
-                  src={match.teamA.captain.profileImage}
-                  alt={match.teamA.captain.nickname}
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-white/50"
+                  src="/icons/red-uniform.svg"
+                  alt="A팀"
+                  className="w-14 h-14"
                 />
-                <p className="text-white font-semibold text-base">
-                  A팀
+                <p className="text-white font-bold text-base">
+                  {match.teamA.captain.nickname} 팀
                 </p>
-                <div className="flex gap-1 flex-wrap max-w-20 justify-center">
-                  {Array.from({ length: match.teamSize }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-2 h-2 rounded-full ${i < match.teamA.currentSize ? "bg-primary" : "bg-white/30"}`}
-                    />
-                  ))}
+                <div
+                  className={`w-5 h-5 rounded-full border-2 ${
+                    selectedTeam === "A"
+                      ? "border-white bg-white"
+                      : "border-white/50 bg-transparent"
+                  } flex items-center justify-center`}
+                >
+                  {selectedTeam === "A" && (
+                    <div className="w-2 h-2 rounded-full bg-[#2E8B57]" />
+                  )}
                 </div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
+                <p className="text-white/70 font-rocket text-xs">
+                  {match.teamA.members.length}/{teamSize}
+                </p>
+              </button>
+
+              <button
+                onClick={() => setSelectedTeam("B")}
+                disabled={isTeamSelectDisabled || isTeamBFull}
+                className="flex flex-col items-center gap-2 disabled:cursor-not-allowed disabled:opacity-40"
+              >
                 <img
-                  src={match.teamB.captain.profileImage}
-                  alt={match.teamB.captain.nickname}
-                  className="w-14 h-14 rounded-full object-cover ring-2 ring-white/50"
+                  src="/icons/blue-uniform.svg"
+                  alt="B팀"
+                  className="w-14 h-14"
                 />
-                <p className="text-white font-semibold text-base">
-                  B팀
+                <p className="text-white font-bold text-base">
+                  {match.teamB.captain.nickname} 팀
                 </p>
-                <div className="flex gap-1 flex-wrap max-w-[80px] justify-center">
-                  {Array.from({ length: match.teamSize }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-2 h-2 rounded-full ${i < match.teamB.currentSize ? "bg-blue-400" : "bg-white/30"}`}
-                    />
-                  ))}
+                <div
+                  className={`w-5 h-5 rounded-full border-2 ${
+                    selectedTeam === "B"
+                      ? "border-white bg-white"
+                      : "border-white/50 bg-transparent"
+                  } flex items-center justify-center`}
+                >
+                  {selectedTeam === "B" && (
+                    <div className="w-2 h-2 rounded-full bg-[#2E8B57]" />
+                  )}
                 </div>
-              </div>
+                <p className="text-white/70 font-rocket text-xs">
+                  {match.teamB.members.length}/{teamSize}
+                </p>
+              </button>
             </div>
           </div>
-        </div>
+        </Section>
 
-        {/* 선발 명단 */}
-        {allMembers.length > 0 && (
-          <div>
-            <p className="text-base font-bold text-[#191F28] mb-4">
-              선발 명단
-            </p>
-            <div className="grid grid-cols-2 gap-4">
-              {allMembers.map((member) => (
-                <PlayerAvatar key={member.id} user={member} />
+        <Section title="주장">
+          <div className="grid grid-cols-2">
+            <div className="flex justify-center items-center py-2 pr-4">
+              <PlayerAvatar user={match.teamA.captain} />
+            </div>
+            <div className="flex justify-center items-center py-2 pl-4">
+              <PlayerAvatar user={match.teamB.captain} />
+            </div>
+          </div>
+        </Section>
+
+        {(match.teamA.members.length > 0 || match.teamB.members.length > 0) && (
+          <Section title="선발 명단">
+            <div className="flex flex-col gap-3 mt-1">
+              {Array.from({ length: maxMembers }).map((_, i) => (
+                <div key={i} className="grid grid-cols-2">
+                  <div className="flex justify-center items-center py-2 pr-4">
+                    {match.teamA.members[i] ? (
+                      <PlayerAvatar user={match.teamA.members[i]} />
+                    ) : (
+                      <div className="w-16 h-18.5" />
+                    )}
+                  </div>
+                  <div className="flex justify-center items-center py-2 pl-4">
+                    {match.teamB.members[i] ? (
+                      <PlayerAvatar user={match.teamB.members[i]} />
+                    ) : (
+                      <div className="w-16 h-18.5" />
+                    )}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
+          </Section>
+        )}
+
+        {match.status === "FINISHED" ? (
+          <button
+            disabled
+            className="w-full py-4 rounded-2xl bg-[#8B95A1] text-white font-bold text-base cursor-not-allowed"
+          >
+            경기 종료
+          </button>
+        ) : isJoined ? (
+          <button
+            onClick={handleCancel}
+            disabled={actionLoading}
+            className="w-full py-4 rounded-2xl bg-red-500 text-white font-bold text-base transition-all active:scale-95 disabled:opacity-50"
+          >
+            {actionLoading ? "처리 중..." : "신청 취소"}
+          </button>
+        ) : match.status === "CLOSED" ? (
+          <button
+            disabled
+            className="w-full py-4 rounded-2xl bg-[#8B95A1] text-white font-bold text-base cursor-not-allowed"
+          >
+            마감됨
+          </button>
+        ) : (
+          <button
+            onClick={() =>
+              handleJoin(selectedTeam === "A" ? "TEAM_A" : "TEAM_B")
+            }
+            disabled={actionLoading}
+            className="w-full py-4 rounded-2xl bg-primary text-white font-bold text-base transition-all active:scale-95 disabled:opacity-50"
+          >
+            {actionLoading
+              ? "처리 중..."
+              : `${selectedTeam === "A" ? match.teamA.captain.nickname : match.teamB.captain.nickname} 팀으로 신청하기`}
+          </button>
         )}
       </div>
     </div>

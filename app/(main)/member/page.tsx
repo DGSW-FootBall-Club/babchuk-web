@@ -34,7 +34,7 @@ export default function MemberPage() {
         <div className="text-right">
           <p className="text-sm text-[#8B95A1]">총 멤버</p>
           <p className="text-lg font-bold text-[#191F28]">
-            {users?.length ?? "-"}명
+            {users?.length ?? ""}명
           </p>
         </div>
       </div>

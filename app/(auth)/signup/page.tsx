@@ -32,7 +32,8 @@ export default function SignupPage() {
     handleChange,
     handleImage,
     isValid,
-    handleSignup
+    isLoading,
+    handleSignup,
   } = useSignup();
 
   return (
@@ -66,9 +67,7 @@ export default function SignupPage() {
         <div>
           <p className="text-sm font-medium text-[#191F28]">
             프로필 이미지 선택
-            <span className="text-xs text-[#8B95A1] ml-1">
-              (선택사항)
-            </span>
+            <span className="text-xs text-[#8B95A1] ml-1">(선택사항)</span>
           </p>
           <p className="text-xs text-[#8B95A1]">
             갤러리에서 사진을 선택하거나
@@ -160,8 +159,8 @@ export default function SignupPage() {
         </div>
 
         <div className="mb-12">
-          <Button type="submit" disabled={!isValid}>
-            회원가입
+          <Button type="submit" disabled={!isValid || isLoading}>
+            {isLoading ? "처리 중..." : "회원가입"}
           </Button>
         </div>
       </form>

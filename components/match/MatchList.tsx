@@ -16,7 +16,7 @@ export function MatchList({ selectedDate }: MatchListProps) {
     return (
       <div className="px-8 flex flex-col gap-3">
         {[1, 2].map(i => (
-          <div key={i} className="h-30 bg-[#F2F4F6] rounded-xl animate-pulse" />
+          <div key={i} className="h-32 bg-[#F2F4F6] rounded-xl animate-pulse" />
         ))}
       </div>
     )

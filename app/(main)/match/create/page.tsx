@@ -32,9 +32,7 @@ function Required() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-sm font-semibold text-[#8B95A1] mb-3">
-      {children}
-    </p>
+    <p className="text-sm font-semibold text-[#8B95A1] mb-3">{children}</p>
   );
 }
 
@@ -200,23 +198,30 @@ export default function CreateMatchPage() {
           </div>
         </div>
 
-        <Input
-          label={
-            <>
-              필요한 인원 수 <Required />
-            </>
-          }
-          type="number"
-          value={values.teamSize === 0 ? "" : String(values.teamSize)}
-          onChange={(v) => {
-            if (v === "") {
-              handleChange("teamSize", 0);
-              return;
+        <div>
+          <Input
+            label={
+              <>
+                필요한 인원 수 (주장 포함) <Required />
+              </>
             }
-            const num = Number(v);
-            if (num <= 20) handleChange("teamSize", num);
-          }}
-        />
+            type="number"
+            value={values.teamSize === 0 ? "" : String(values.teamSize)}
+            onChange={(v) => {
+              if (v === "") {
+                handleChange("teamSize", 0);
+                return;
+              }
+              const num = Number(v);
+              if (num <= 20) handleChange("teamSize", num);
+            }}
+          />
+          {values.teamSize >= 4 && values.teamSize % 2 === 0 && (
+            <p className="text-xs text-[#8B95A1] mt-1">
+              팀당 {values.teamSize / 2 - 1}명 모집 (주장 제외)
+            </p>
+          )}
+        </div>
 
         <div>
           <Label>

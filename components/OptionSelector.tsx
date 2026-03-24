@@ -6,7 +6,7 @@ interface Option<T extends string> {
 interface OptionSelectorProps<T extends string> {
   title: string;
   options: Option<T>[];
-  selected: T;
+  selected: T | null;
   onChange: (value: T) => void;
 }
 
@@ -27,14 +27,13 @@ export function OptionSelector<T extends string>({
       >
         {options.map((opt) => (
           <button
+            type="button"
             key={opt.value}
             onClick={() => onChange(opt.value)}
             className="h-12 rounded-xl border text-base font-medium transition-all duration-200 active:scale-95"
             style={{
-              borderColor:
-                selected === opt.value ? "var(--color-primary)" : "#E5E8EB",
-              color:
-                selected === opt.value ? "var(--color-primary)" : "#8B95A1",
+              borderColor: selected === opt.value ? "var(--color-primary)" : "#E5E8EB",
+              color: selected === opt.value ? "var(--color-primary)" : "#8B95A1",
               backgroundColor: selected === opt.value ? "#EEF3FF" : "white",
               transform: selected === opt.value ? "scale(1.03)" : "scale(1)",
             }}

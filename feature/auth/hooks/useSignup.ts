@@ -23,8 +23,8 @@ export function useSignup() {
     nickname: '',
     grade: '',
   })
-  const [skill, setSkill] = useState<SkillType>('BEGINNER')
-  const [gender, setGender] = useState<GenderType>('MALE')
+  const [skill, setSkill] = useState<SkillType | null>(null)
+  const [gender, setGender] = useState<GenderType | null>(null)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -44,9 +44,13 @@ export function useSignup() {
     values.username.length >= 7 &&
     passwordRegex.test(values.password) &&
     values.nickname.length > 0 &&
-    values.grade.length === 4
+    values.grade.length === 4 &&
+    skill !== null &&
+    gender !== null
 
   const handleSignup = async () => {
+    if (isLoading) return
+    if (!skill || !gender) return
     try {
       setIsLoading(true)
       const profileImage = imageFile ? await toBase64(imageFile) : undefined
