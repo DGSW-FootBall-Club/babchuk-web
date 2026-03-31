@@ -50,7 +50,7 @@ export default function RootLayout({
     <html lang="ko" className={`${pretendard.variable} ${aRocket.variable}`}>
       <body className="font-pretendard">
         <QueryClientProvider client={queryClient}>
-          <div className="max-w-250 mx-auto min-h-screen">{children}</div>
+          <div className="max-w-240 mx-auto min-h-screen">{children}</div>
         </QueryClientProvider>
       </body>
     </html>

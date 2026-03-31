@@ -53,7 +53,7 @@ export default function MatchDetailPage({
 
   return (
     <div className="flex flex-col min-h-screen bg-white pb-10">
-      <div className="flex flex-col gap-1.5 px-5 relative">
+      <div className="gap-3 px-5">
         <BackButton />
         <img
           src="/icons/school.svg"

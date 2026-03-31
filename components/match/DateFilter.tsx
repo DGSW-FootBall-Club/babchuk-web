@@ -8,19 +8,19 @@ interface DateFilterProps {
 }
 
 function getKSTToday() {
-  const now = new Date()
-  const kst = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }))
-  kst.setHours(0, 0, 0, 0)
-  return kst
+  const now = new Date();
+  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+  kst.setHours(0, 0, 0, 0);
+  return kst;
 }
 
 function getDates(count = 60) {
-  const base = getKSTToday()
+  const base = getKSTToday();
   return Array.from({ length: count }, (_, i) => {
-    const d = new Date(base)
-    d.setDate(d.getDate() + i)
-    return d
-  })
+    const d = new Date(base);
+    d.setDate(d.getDate() + i);
+    return d;
+  });
 }
 
 const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
@@ -38,16 +38,15 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
   const dates = allDates.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
   return (
-    <div className="flex items-center gap-1 px-3">
+    <div className="flex items-center w-full overflow-hidden px-1 md:px-3">
       <button
         type="button"
         onClick={() => setPage((p) => Math.max(0, p - 1))}
         disabled={page === 0}
-        className="w-7 h-7 flex items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
+        className="shrink-0 w-5 h-5 md:w-7 md:h-7 flex items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
       >
         <svg
-          width="14"
-          height="14"
+          className="w-3 h-3 md:w-3.5 md:h-3.5"
           viewBox="0 0 24 24"
           fill="none"
           stroke="#8B95A1"
@@ -59,7 +58,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
         </svg>
       </button>
 
-      <div className="flex flex-1 justify-between">
+      <div className="flex flex-1 min-w-0 justify-between">
         {dates.map((d) => {
           const str = toStr(d);
           const active = selectedDate === str;
@@ -72,12 +71,12 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
               key={str}
               type="button"
               onClick={() => onSelect(str)}
-              className={`flex flex-col items-center gap-1 px-10 py-2.5 rounded-full transition-all duration-150 active:scale-90 ${
+              className={`flex-1 min-w-0 flex flex-col items-center gap-0.5 md:gap-1 py-1.5 md:py-2.5 rounded-full transition-all duration-150 active:scale-90 ${
                 active ? "bg-primary" : ""
               }`}
             >
               <p
-                className={`text-lg font-bold leading-none ${
+                className={`text-[3.8vw] sm:text-lg font-bold leading-none ${
                   active
                     ? "text-white"
                     : isSun
@@ -90,7 +89,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
                 {d.getDate()}
               </p>
               <p
-                className={`text-xs font-semibold ${
+                className={`text-[2.5vw] sm:text-xs font-semibold ${
                   active
                     ? "text-white/80"
                     : isSun
@@ -111,11 +110,11 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
         type="button"
         onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
         disabled={page >= totalPages - 1}
-        className="w-7 h-7 flex items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
+        className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
       >
         <svg
-          width="14"
-          height="14"
+          width="12"
+          height="12"
           viewBox="0 0 24 24"
           fill="none"
           stroke="#8B95A1"

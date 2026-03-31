@@ -30,7 +30,7 @@ export function OptionSelector<T extends string>({
             type="button"
             key={opt.value}
             onClick={() => onChange(opt.value)}
-            className="h-12 rounded-xl border text-base font-medium transition-all duration-200 active:scale-95"
+            className="h-12 rounded-xl border text-base font-medium transition-all duration-200  -95"
             style={{
               borderColor: selected === opt.value ? "var(--color-primary)" : "#E5E8EB",
               color: selected === opt.value ? "var(--color-primary)" : "#8B95A1",

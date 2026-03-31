@@ -11,6 +11,7 @@ export function BackButton() {
       className="mt-6 mb-4 flex items-center gap-1 transition-all duration-150 active:scale-95 active:brightness-70"
     >
       <svg
+        className="pointer-events-none"
         width="24"
         height="24"
         viewBox="0 0 24 24"
