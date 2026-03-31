@@ -40,8 +40,8 @@ export default function SignupPage() {
     <div className="flex flex-col min-h-screen px-6 bg-white">
       <BackButton />
 
-      <div className="mb-8">
-        <p className="text-3xl font-rocket">회원가입</p>
+      <div className="mb-6 md:mb-8">
+        <p className="text-2xl md:text-3xl font-rocket">회원가입</p>
       </div>
 
       <div className="flex items-center gap-4 mb-8">

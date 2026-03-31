@@ -14,10 +14,10 @@
       <div className="flex flex-col min-h-screen px-6 bg-white">
         <div className="flex-1 flex items-center justify-center flex-col">
           <SlideIn delay={0}>
-            <p className="text-[85px] font-rocket">밥축</p>
+            <p className="text-6xl md:text-[85px] font-rocket">밥축</p>
           </SlideIn>
           <SlideIn delay={0.3}>
-            <p className="text-xl font-rocket">밥먹고 축구 할 사람?</p>
+            <p className="text-base md:text-xl font-rocket">밥먹고 축구 할 사람?</p>
           </SlideIn>
         </div>
 

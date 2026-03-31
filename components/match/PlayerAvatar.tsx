@@ -6,9 +6,9 @@ export function PlayerAvatar({ user }: { user: UserResponse }) {
       <img
         src={user.profileImage}
         alt={user.nickname}
-        className="w-16 h-16 rounded-full object-cover bg-[#C4C9D1]"
+        className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover bg-[#C4C9D1]"
       />
-      <p className="text-sm text-[#000000] text-center font-medium">
+      <p className="text-xs md:text-sm text-[#000000] text-center font-medium">
         {user.grade} {user.nickname}
       </p>
     </div>

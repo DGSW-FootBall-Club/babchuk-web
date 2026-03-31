@@ -41,7 +41,7 @@ export default function MemberPage() {
 
       <div className="px-4 py-3">
         <div className="bg-white rounded-2xl overflow-hidden border border-[#F2F4F6]">
-          <div className="grid grid-cols-[1fr_80px_60px_60px] px-4 py-3 bg-[#F8F9FB] border-b border-[#F2F4F6]">
+          <div className="grid grid-cols-[1fr_60px_44px_44px] md:grid-cols-[1fr_80px_60px_60px] px-4 py-3 bg-[#F8F9FB] border-b border-[#F2F4F6]">
             <p className="text-xs text-[#8B95A1]">이름</p>
             <p className="text-xs text-[#8B95A1] text-center">
               학번
@@ -60,7 +60,7 @@ export default function MemberPage() {
             users?.map((user, index) => (
               <div
                 key={user.id}
-                className={`grid grid-cols-[1fr_80px_60px_60px] px-4 py-3 items-center ${index !== users.length - 1 ? "border-b border-[#F2F4F6]" : ""}`}
+                className={`grid grid-cols-[1fr_60px_44px_44px] md:grid-cols-[1fr_80px_60px_60px] px-4 py-3 items-center ${index !== users.length - 1 ? "border-b border-[#F2F4F6]" : ""}`}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#F2F4F6] overflow-hidden shrink-0">

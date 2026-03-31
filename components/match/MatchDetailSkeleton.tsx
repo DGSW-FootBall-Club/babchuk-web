@@ -52,8 +52,8 @@ export function MatchDetailSkeleton() {
         </SkeletonSection>
 
         <SkeletonSection titleWidth="w-16">
-          <div className="bg-[#E8EAED] rounded-2xl px-8 py-6">
-            <div className="relative flex items-center justify-between py-5 px-[10%]">
+          <div className="bg-[#E8EAED] rounded-2xl px-4 md:px-8 py-5 md:py-6">
+            <div className="relative flex items-center justify-between py-4 md:py-5 px-[5%] md:px-[10%]">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-14 h-14 bg-[#D9DDE2] rounded-full" />
                 <div className="h-4 w-12 bg-[#D9DDE2] rounded" />

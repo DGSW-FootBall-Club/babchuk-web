@@ -58,7 +58,7 @@ export const HomeBanner = () => {
   return (
     <div
       className="relative mb-4 rounded-2xl overflow-hidden select-none"
-      style={{ minHeight: "230px" }}
+      style={{ minHeight: "clamp(160px, 40vw, 230px)" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onMouseDown={handleMouseDown}
@@ -80,7 +80,7 @@ export const HomeBanner = () => {
                 backgroundImage: banner.bg,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                minHeight: "230px",
+                minHeight: "clamp(160px, 40vw, 230px)",
               }}
               className="relative w-full"
             >
@@ -89,7 +89,7 @@ export const HomeBanner = () => {
                 className="relative z-10 p-5 flex flex-col justify-end h-full"
                 style={{ minHeight: "230px" }}
               >
-                <p className="text-white font-bold text-2xl leading-tight whitespace-pre-line">
+                <p className="text-white font-bold text-lg md:text-2xl leading-tight whitespace-pre-line">
                   {banner.title}
                 </p>
               </div>

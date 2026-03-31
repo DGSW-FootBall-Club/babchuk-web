@@ -14,7 +14,7 @@ export function MatchList({ selectedDate }: MatchListProps) {
 
   if (isLoading) {
     return (
-      <div className="px-8 flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         {[1, 2].map((i) => (
           <div
             key={i}

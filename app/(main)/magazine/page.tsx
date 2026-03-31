@@ -11,7 +11,7 @@ export default function MagazinePage() {
         <p className="text-sm text-[#8B95A1] mb-1">
           대소고 FC
         </p>
-        <p className="text-2xl font-bold text-[#191F28] leading-tight mb-2">
+        <p className="text-xl md:text-2xl font-bold text-[#191F28] leading-tight mb-2">
           밥축 문화 가이드
         </p>
         <p className="text-sm text-[#8B95A1]">
@@ -26,7 +26,7 @@ export default function MagazinePage() {
             backgroundImage: "url(/icons/banner.svg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            minHeight: "400px",
+            minHeight: "clamp(250px, 60vw, 400px)",
           }}
         />
       </div>

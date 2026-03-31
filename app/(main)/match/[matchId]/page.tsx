@@ -75,7 +75,7 @@ export default function MatchDetailPage({
               {MatchStatusLabel[match.status]}
             </span>
           </div>
-          <p className="text-2xl font-black text-[#191F28] mb-1">
+          <p className="text-xl md:text-2xl font-black text-[#191F28] mb-1">
             대소고 FC 스타디움
           </p>
           <p className="text-base text-[#8B95A1]">{match.title}</p>
@@ -108,14 +108,14 @@ export default function MatchDetailPage({
 
         <Section title="팀 선택">
           <div
-            className={`bg-[#009655] rounded-2xl px-8 py-6 relative overflow-hidden ${isTeamSelectDisabled ? "opacity-50" : ""}`}
+            className={`bg-[#009655] rounded-2xl px-4 md:px-8 py-5 md:py-6 relative overflow-hidden ${isTeamSelectDisabled ? "opacity-50" : ""}`}
           >
             <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/70" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-white/70 pointer-events-none" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 border-2 border-white/70 border-t-0 rounded-b-full pointer-events-none" />
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-8 border-2 border-white/70 border-b-0 rounded-t-full pointer-events-none" />
 
-            <div className="relative flex items-center justify-between py-5 px-[10%]">
+            <div className="relative flex items-center justify-between py-4 md:py-5 px-[5%] md:px-[10%]">
               <button
                 onClick={() => setSelectedTeam("A")}
                 disabled={isTeamSelectDisabled || isTeamAFull}
@@ -124,7 +124,7 @@ export default function MatchDetailPage({
                 <img
                   src="/icons/red-uniform.svg"
                   alt="A팀"
-                  className="w-14 h-14"
+                  className="w-11 h-11 md:w-14 md:h-14"
                 />
                 <p className="text-white font-bold text-base">
                   {match.teamA.captain.nickname} 팀
@@ -153,7 +153,7 @@ export default function MatchDetailPage({
                 <img
                   src="/icons/blue-uniform.svg"
                   alt="B팀"
-                  className="w-14 h-14"
+                  className="w-11 h-11 md:w-14 md:h-14"
                 />
                 <p className="text-white font-bold text-base">
                   {match.teamB.captain.nickname} 팀
@@ -197,14 +197,14 @@ export default function MatchDetailPage({
                     {match.teamA.members[i] ? (
                       <PlayerAvatar user={match.teamA.members[i]} />
                     ) : (
-                      <div className="w-16 h-18.5" />
+                      <div className="w-12 h-14 md:w-16 md:h-18.5" />
                     )}
                   </div>
                   <div className="flex justify-center items-center py-2 pl-4">
                     {match.teamB.members[i] ? (
                       <PlayerAvatar user={match.teamB.members[i]} />
                     ) : (
-                      <div className="w-16 h-18.5" />
+                      <div className="w-12 h-14 md:w-16 md:h-18.5" />
                     )}
                   </div>
                 </div>
@@ -241,7 +241,7 @@ export default function MatchDetailPage({
               handleJoin(selectedTeam === "A" ? "TEAM_A" : "TEAM_B")
             }
             disabled={actionLoading}
-            className="w-full py-4 rounded-2xl bg-primary text-white font-bold text-base transition-all active:scale-95 disabled:opacity-50"
+            className="w-full py-3.5 md:py-4 rounded-2xl bg-primary text-white font-bold text-sm md:text-base transition-all active:scale-95 disabled:opacity-50"
           >
             {actionLoading
               ? "처리 중..."

@@ -38,7 +38,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
   const dates = allDates.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
 
   return (
-    <div className="flex items-center w-full overflow-hidden px-1 md:px-3">
+    <div className="flex items-center w-full overflow-hidden px-2 md:px-3">
       <button
         type="button"
         onClick={() => setPage((p) => Math.max(0, p - 1))}
@@ -76,7 +76,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
               }`}
             >
               <p
-                className={`text-[3.8vw] sm:text-lg font-bold leading-none ${
+                className={`text-sm md:text-lg font-bold leading-none ${
                   active
                     ? "text-white"
                     : isSun
@@ -89,7 +89,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
                 {d.getDate()}
               </p>
               <p
-                className={`text-[2.5vw] sm:text-xs font-semibold ${
+                className={`text-[10px] md:text-xs font-semibold ${
                   active
                     ? "text-white/80"
                     : isSun

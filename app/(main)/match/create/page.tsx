@@ -88,8 +88,8 @@ export default function CreateMatchPage() {
         <BackButton />
       </div>
 
-      <div className="px-6 pt-2 pb-8">
-        <p className="text-3xl font-rocket">매치 생성</p>
+      <div className="px-4 md:px-6 pt-2 pb-6 md:pb-8">
+        <p className="text-2xl md:text-3xl font-rocket">매치 생성</p>
       </div>
 
       <form
@@ -97,7 +97,7 @@ export default function CreateMatchPage() {
           e.preventDefault();
           if (isValid) handleSubmit();
         }}
-        className="flex flex-col px-6 pb-16 gap-8"
+        className="flex flex-col px-4 md:px-6 pb-16 gap-6 md:gap-8"
       >
         <Input
           label={

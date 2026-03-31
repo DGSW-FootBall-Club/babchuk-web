@@ -18,15 +18,15 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Header title="밥축" />
-      <div className="flex flex-col gap-6 pt-2 pb-12">
-        <div className="px-5 flex flex-col gap-6">
+      <div className="flex flex-col gap-4 md:gap-6 pt-2 pb-12">
+        <div className="px-4 md:px-5 flex flex-col gap-4 md:gap-6">
           <HomeBanner />
           <HomeMenu />
         </div>
 
         <DateFilter selectedDate={selectedDate} onSelect={setSelectedDate} />
 
-        <div className="px-5 mt-4">
+        <div className="md:px-5 mt-2 md:mt-4">
           <MatchList selectedDate={selectedDate} />
         </div>
       </div>

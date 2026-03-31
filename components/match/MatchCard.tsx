@@ -20,34 +20,34 @@ export function MatchCard({ match }: MatchCardProps) {
         {MatchStatusLabel[match.status]}
       </div>
 
-      <div className="flex items-center justify-between px-14 pt-10 pb-6">
-        <div className="flex flex-col items-center gap-3 w-16">
+      <div className="flex items-center justify-between px-8 md:px-14 pt-8 md:pt-10 pb-5 md:pb-6">
+        <div className="flex flex-col items-center gap-2 md:gap-3 w-14 md:w-16">
           <img
             src={match.teamACaptain.profileImage}
             alt={match.teamACaptain.nickname}
-            className="w-14 h-14 rounded-full object-cover ring-2 ring-white"
+            className="w-11 h-11 md:w-14 md:h-14 rounded-full object-cover ring-2 ring-white"
           />
-          <p className="text-xs font-semibold text-[#8B95A1]">
+          <p className="text-[11px] md:text-xs font-semibold text-[#8B95A1] truncate w-full text-center">
             {match.teamACaptain.nickname}팀
           </p>
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          <p className="text-2xl font-black text-[#191F28] tracking-tight">
+          <p className="text-xl md:text-2xl font-black text-[#191F28] tracking-tight">
             {formatMatchTime(match.matchTime)}
           </p>
-          <p className="text-xs text-[#8B95A1]">
+          <p className="text-[11px] md:text-xs text-[#8B95A1]">
             {formatMatchDate(match.matchDate)}
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-3 w-16">
+        <div className="flex flex-col items-center gap-2 md:gap-3 w-14 md:w-16">
           <img
             src={match.teamBCaptain.profileImage}
             alt={match.teamBCaptain.nickname}
-            className="w-14 h-14 rounded-full object-cover ring-2 ring-white"
+            className="w-11 h-11 md:w-14 md:h-14 rounded-full object-cover ring-2 ring-white"
           />
-          <p className="text-xs font-semibold text-[#8B95A1]">
+          <p className="text-[11px] md:text-xs font-semibold text-[#8B95A1] truncate w-full text-center">
             {match.teamBCaptain.nickname}팀
           </p>
         </div>
