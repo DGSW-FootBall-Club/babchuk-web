@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userApi } from "@/feature/user/api/userApi";
 import { SkillTypeLabel, GenderTypeLabel } from "@/shared/types/Enum";
 import { Header } from "@/components/Header";
+import { BackButton } from "@/components/BackButton";
 import { MemberSkeleton } from "@/components/member/MemberSkeleton";
 import Image from "next/image";
 
@@ -15,6 +16,9 @@ export default function MemberPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
+      <div className="px-4 md:px-5">
+        <BackButton />
+      </div>
       <Header title="선수명단" />
 
       <div className="flex items-center justify-between px-5 py-4 border-b border-[#F2F4F6]">

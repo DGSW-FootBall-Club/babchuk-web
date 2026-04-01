@@ -12,6 +12,7 @@ import {
 } from "@/components/match/TimePickerModal";
 import { useCreateMatch } from "@/feature/match/hooks/useCreateMatch";
 import { UserResponse } from "@/feature/user/types/response/UserResponse";
+import { Header } from "@/components/Header";
 
 type ModalType = "date" | "time" | "captainA" | "captainB" | null;
 type MatchTimeType = "lunch" | "dinner" | "custom" | null;
@@ -88,9 +89,7 @@ export default function CreateMatchPage() {
         <BackButton />
       </div>
 
-      <div className="px-4 md:px-6 pt-2 pb-6 md:pb-8">
-        <p className="text-2xl md:text-3xl font-rocket">매치 생성</p>
-      </div>
+      <Header title="매치 생성" />
 
       <form
         onSubmit={(e) => {
