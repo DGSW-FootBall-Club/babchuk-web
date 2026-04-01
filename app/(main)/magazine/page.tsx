@@ -8,26 +8,17 @@ export default function MagazinePage() {
       </div>
 
       <div className="text-center px-6 pb-6">
-        <p className="text-sm text-[#8B95A1] mb-1">
-          대소고 FC
-        </p>
+        <p className="text-sm text-[#8B95A1] mb-1">대소고 FC</p>
         <p className="text-xl md:text-2xl font-bold text-[#191F28] leading-tight mb-2">
           밥축 문화 가이드
         </p>
-        <p className="text-sm text-[#8B95A1]">
-          존중하고 격려하고 함께 즐겨요
-        </p>
+        <p className="text-sm text-[#8B95A1]">존중하고 격려하고 함께 즐겨요</p>
       </div>
 
       <div className="px-5 mb-6">
-        <div
-          className="w-full rounded-2xl overflow-hidden"
-          style={{
-            backgroundImage: "url(/icons/banner.svg)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "clamp(250px, 60vw, 400px)",
-          }}
+        <img
+          src="/icons/banner.png"
+          className="w-full aspect-video object-cover rounded-xl"
         />
       </div>
 

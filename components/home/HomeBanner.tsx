@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 
 const banners = [
   {
-    bg: "url(/icons/banner.svg)",
+    bg: "url(/icons/banner.png)",
     title: "대소고 FC\n 공식 플랫폼에 오신 것을 환영해요!",
     href: "/magazine",
   },
@@ -79,7 +79,7 @@ export const HomeBanner = () => {
               style={{
                 backgroundImage: banner.bg,
                 backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundPosition: "center bottom 35%",
                 minHeight: "clamp(160px, 40vw, 230px)",
               }}
               className="relative w-full"
