@@ -29,20 +29,20 @@ export function UserSelectModal({
 
   return (
     <CenterModal onClose={onClose}>
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#F2F4F6]">
-        <p className="text-lg font-bold text-[#191F28]">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-muted">
+        <p className="text-lg font-bold text-foreground">
           {title}
         </p>
         <button
           onClick={onClose}
-          className="w-8 h-8 flex items-center justify-center rounded-full bg-[#F2F4F6] active:brightness-90"
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-muted active:brightness-90"
         >
           <svg
             width="14"
             height="14"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#191F28"
+            stroke="var(--color-foreground)"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -55,7 +55,7 @@ export function UserSelectModal({
       <div className="overflow-y-auto max-h-100">
         {isLoading && (
           <div className="flex items-center justify-center py-10">
-            <p className="text-sm text-[#8B95A1]">
+            <p className="text-sm text-muted-foreground">
               불러오는 중...
             </p>
           </div>
@@ -68,11 +68,11 @@ export function UserSelectModal({
               onClose();
             }}
             className={`flex items-center justify-between w-full px-5 py-3 transition-all active:brightness-95 ${
-              index !== filtered.length - 1 ? "border-b border-[#F2F4F6]" : ""
-            } ${selectedId === user.id ? "bg-[#EEF3FF]" : ""}`}
+              index !== filtered.length - 1 ? "border-b border-muted" : ""
+            } ${selectedId === user.id ? "bg-primary-subtle" : ""}`}
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#F2F4F6] overflow-hidden shrink-0">
+              <div className="w-10 h-10 rounded-full bg-muted overflow-hidden shrink-0">
                 <img
                   src={user.profileImage}
                   alt={user.nickname}
@@ -80,10 +80,10 @@ export function UserSelectModal({
                 />
               </div>
               <div className="text-left">
-                <p className="text-sm font-medium text-[#191F28]">
+                <p className="text-sm font-medium text-foreground">
                   {user.nickname}
                 </p>
-                <p className="text-xs text-[#8B95A1]">
+                <p className="text-xs text-muted-foreground">
                   {user.grade}학번
                 </p>
               </div>
@@ -92,7 +92,7 @@ export function UserSelectModal({
               className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
                 selectedId === user.id
                   ? "border-primary bg-primary"
-                  : "border-[#E5E8EB]"
+                  : "border-line"
               }`}
             >
               {selectedId === user.id && (

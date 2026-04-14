@@ -12,15 +12,18 @@ export function AnnouncementList() {
     return (
       <div className="px-4 md:px-5 flex flex-col gap-3">
         {[1, 2, 3].map((i) => (
-          <div key={i} className="bg-[#F8F9FB] rounded-2xl px-5 py-5 animate-pulse">
-            <div className="h-5 w-2/3 bg-gray-200 rounded mb-3" />
+          <div
+            key={i}
+            className="bg-subtle rounded-2xl px-5 py-5 animate-pulse"
+          >
+            <div className="h-5 w-2/3 bg-muted rounded mb-3" />
             <div className="flex items-center justify-between mb-3">
-              <div className="h-3 w-20 bg-gray-200 rounded" />
-              <div className="h-3 w-16 bg-gray-200 rounded" />
+              <div className="h-3 w-20 bg-muted rounded" />
+              <div className="h-3 w-16 bg-muted rounded" />
             </div>
             <div className="flex flex-col gap-1.5">
-              <div className="h-3.5 w-full bg-gray-200 rounded" />
-              <div className="h-3.5 w-4/5 bg-gray-200 rounded" />
+              <div className="h-3.5 w-full bg-muted rounded" />
+              <div className="h-3.5 w-4/5 bg-muted rounded" />
             </div>
           </div>
         ))}
@@ -31,8 +34,12 @@ export function AnnouncementList() {
   if (!announcements || announcements.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 gap-2">
-        <p className="text-base font-semibold text-[#191F28]">공지사항이 없어요</p>
-        <p className="text-sm text-[#8B95A1]">새로운 공지가 올라오면 알려드릴게요!</p>
+        <p className="text-base font-semibold text-foreground">
+          공지사항이 없어요
+        </p>
+        <p className="text-sm text-muted-foreground">
+          새로운 공지가 올라오면 알려드릴게요!
+        </p>
       </div>
     );
   }

@@ -1,10 +1,65 @@
 @import "tailwindcss";
 
-@theme {
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #ffffff;
+  --subtle: #f8f9fb;
+  --muted: #f2f4f6;
+  --line: #e5e8eb;
+  --line-subtle: #e8eaed;
+  --fg: #191f28;
+  --body: #4e5968;
+  --muted-fg: #8b95a1;
+  --placeholder: #c4c9d1;
+  --primary: #3366ff;
+  --primary-subtle: #eef3ff;
+  --danger: #c33431;
+  --danger-subtle: #fff5f5;
+  --success: #009655;
+}
+
+.dark {
+  --bg: #121417;
+  --subtle: #1a1d21;
+  --muted: #22262b;
+  --line: #2d3238;
+  --line-subtle: #363c43;
+  --fg: #f2f4f6;
+  --body: #c4c9d1;
+  --muted-fg: #8b95a1;
+  --placeholder: #4e5968;
+  --primary: #5b87ff;
+  --primary-subtle: #1a1d21;
+  --danger: #ff6b6b;
+  --danger-subtle: #3a1e1e;
+  --success: #3fcf7e;
+}
+
+@theme inline {
   --font-pretendard: var(--font-pretendard);
   --font-rocket: var(--font-a-rocket);
 
-  --color-primary: #3366ff;
+  --color-background: var(--bg);
+  --color-subtle: var(--subtle);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-subtle: var(--line-subtle);
+  --color-foreground: var(--fg);
+  --color-body: var(--body);
+  --color-muted-foreground: var(--muted-fg);
+  --color-placeholder: var(--placeholder);
+  --color-primary: var(--primary);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-danger: var(--danger);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-success: var(--success);
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--fg);
 }
 
 @font-face {

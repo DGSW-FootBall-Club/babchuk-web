@@ -16,7 +16,7 @@ export const HomeMenu = () => {
         <Link
           key={item.label}
           href={item.href}
-          className="flex flex-col items-center gap-1.5 md:gap-2.5 bg-[#F8F9FB] rounded-xl md:rounded-2xl p-2 md:p-3 transition-all duration-150 active:scale-95 active:brightness-90"
+          className="flex flex-col items-center gap-1.5 md:gap-2.5 bg-subtle rounded-xl md:rounded-2xl p-2 md:p-3 transition-all duration-150 active:scale-95 active:brightness-90"
         >
           <Image
             src={item.icon}

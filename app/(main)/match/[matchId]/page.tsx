@@ -52,7 +52,7 @@ export default function MatchDetailPage({
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-white pb-10">
+    <div className="flex flex-col min-h-screen bg-background pb-10">
       <div className="gap-3 px-5">
         <BackButton />
         <img
@@ -65,7 +65,7 @@ export default function MatchDetailPage({
       <div className="px-5 py-5 flex flex-col gap-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <p className="text-base text-[#8B95A1]">
+            <p className="text-base text-muted-foreground">
               {formatMatchDate(match.matchDate)}{" "}
               {formatMatchTime(match.matchTime)}
             </p>
@@ -75,31 +75,31 @@ export default function MatchDetailPage({
               {MatchStatusLabel[match.status]}
             </span>
           </div>
-          <p className="text-xl md:text-2xl font-black text-[#191F28] mb-1">
+          <p className="text-xl md:text-2xl font-black text-foreground mb-1">
             대소고 FC 스타디움
           </p>
-          <p className="text-base text-[#8B95A1]">{match.title}</p>
+          <p className="text-base text-muted-foreground">{match.title}</p>
         </div>
 
         <Section title="매치 정보">
           <div className="grid grid-cols-2 gap-y-3">
             <div className="flex items-center gap-2">
               <img src="/icons/person.svg" alt="레벨" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">모든 레벨</p>
+              <p className="text-base text-foreground">모든 레벨</p>
             </div>
             <div className="flex items-center gap-2">
               <img src="/icons/gender.svg" alt="성별" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">남녀 모두</p>
+              <p className="text-base text-foreground">남녀 모두</p>
             </div>
             <div className="flex items-center gap-2">
               <img src="/icons/clock.svg" alt="시간" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">
+              <p className="text-base text-foreground">
                 {match.durationMinutes}분
               </p>
             </div>
             <div className="flex items-center gap-2">
               <img src="/icons/stadium.svg" alt="경기" className="w-4 h-4" />
-              <p className="text-base text-[#191F28]">
+              <p className="text-base text-foreground">
                 {match.teamSize / 2}vs{match.teamSize / 2}
               </p>
             </div>
@@ -108,7 +108,7 @@ export default function MatchDetailPage({
 
         <Section title="팀 선택">
           <div
-            className={`bg-[#009655] rounded-2xl px-4 md:px-8 py-5 md:py-6 relative overflow-hidden ${isTeamSelectDisabled ? "opacity-50" : ""}`}
+            className={`bg-success rounded-2xl px-4 md:px-8 py-5 md:py-6 relative overflow-hidden ${isTeamSelectDisabled ? "opacity-50" : ""}`}
           >
             <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/70" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border-2 border-white/70 pointer-events-none" />
@@ -137,7 +137,7 @@ export default function MatchDetailPage({
                   } flex items-center justify-center`}
                 >
                   {selectedTeam === "A" && (
-                    <div className="w-2 h-2 rounded-full bg-[#2E8B57]" />
+                    <div className="w-2 h-2 rounded-full bg-success" />
                   )}
                 </div>
                 <p className="text-white/70 font-rocket text-xs">
@@ -166,7 +166,7 @@ export default function MatchDetailPage({
                   } flex items-center justify-center`}
                 >
                   {selectedTeam === "B" && (
-                    <div className="w-2 h-2 rounded-full bg-[#2E8B57]" />
+                    <div className="w-2 h-2 rounded-full bg-success" />
                   )}
                 </div>
                 <p className="text-white/70 font-rocket text-xs">
@@ -216,7 +216,7 @@ export default function MatchDetailPage({
         {match.status === "FINISHED" ? (
           <button
             disabled
-            className="w-full py-4 rounded-2xl bg-[#8B95A1] text-white font-bold text-base cursor-not-allowed"
+            className="w-full py-4 rounded-2xl bg-muted-foreground text-white font-bold text-base cursor-not-allowed"
           >
             경기 종료
           </button>
@@ -231,7 +231,7 @@ export default function MatchDetailPage({
         ) : match.status === "CLOSED" ? (
           <button
             disabled
-            className="w-full py-4 rounded-2xl bg-[#8B95A1] text-white font-bold text-base cursor-not-allowed"
+            className="w-full py-4 rounded-2xl bg-muted-foreground text-white font-bold text-base cursor-not-allowed"
           >
             마감됨
           </button>

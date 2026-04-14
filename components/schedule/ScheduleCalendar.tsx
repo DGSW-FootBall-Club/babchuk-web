@@ -79,7 +79,7 @@ export function ScheduleCalendar({
             className="w-4 h-4"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#8B95A1"
+            stroke="var(--color-muted-foreground)"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -88,7 +88,7 @@ export function ScheduleCalendar({
           </svg>
         </button>
 
-        <p className="text-lg md:text-xl font-bold text-[#191F28]">
+        <p className="text-lg md:text-xl font-bold text-foreground">
           {viewYear}년 {viewMonth + 1}월
         </p>
 
@@ -101,7 +101,7 @@ export function ScheduleCalendar({
             className="w-4 h-4"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#8B95A1"
+            stroke="var(--color-muted-foreground)"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -120,7 +120,7 @@ export function ScheduleCalendar({
                   ? "text-red-400"
                   : i === 6
                     ? "text-blue-500"
-                    : "text-[#8B95A1]"
+                    : "text-muted-foreground"
               }`}
             >
               {day}
@@ -162,7 +162,7 @@ export function ScheduleCalendar({
                         ? "text-red-400"
                         : isSat
                           ? "text-blue-500"
-                          : "text-[#191F28]"
+                          : "text-foreground"
                   }`}
                 >
                   {d.getDate()}

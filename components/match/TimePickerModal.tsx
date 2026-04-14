@@ -76,25 +76,25 @@ export function TimePickerModal({
     <CenterModal onClose={onClose}>
       <style>{`
         .rwp [data-rwp-highlight-wrapper] {
-          background: #F2F4F6;
+          background: var(--color-muted);
           border-radius: 14px;
           border: none;
         }
         .rwp [data-rwp-option] {
           font-size: 18px;
-          color: #C4C9D1;
+          color: var(--color-placeholder);
           font-weight: 400;
           padding: 0 8px;
         }
         .rwp [data-rwp-highlight-item] {
           font-size: 22px;
           font-weight: 700;
-          color: #191F28;
+          color: var(--color-foreground);
         }
       `}</style>
 
       <div className="px-6 pt-5 pb-6">
-        <p className="text-base font-bold text-[#191F28] mb-5">
+        <p className="text-base font-bold text-foreground mb-5">
           시간 선택
         </p>
 
@@ -112,7 +112,7 @@ export function TimePickerModal({
             </WheelPickerWrapper>
           </div>
 
-          <p className="text-2xl font-bold text-[#C4C9D1] self-center">:</p>
+          <p className="text-2xl font-bold text-placeholder self-center">:</p>
 
           <div className="flex-1">
             <WheelPickerWrapper>

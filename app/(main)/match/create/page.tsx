@@ -33,7 +33,7 @@ function Required() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-sm font-semibold text-[#8B95A1] mb-3">{children}</p>
+    <p className="text-sm font-semibold text-muted-foreground mb-3">{children}</p>
   );
 }
 
@@ -84,7 +84,7 @@ export default function CreateMatchPage() {
     ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="px-5">
         <BackButton />
       </div>
@@ -116,10 +116,10 @@ export default function CreateMatchPage() {
           <button
             type="button"
             onClick={() => setModal("date")}
-            className="w-full flex items-center justify-between bg-[#F8F9FB] rounded-2xl px-4 py-4 transition-all duration-150 active:scale-[0.98] active:brightness-95"
+            className="w-full flex items-center justify-between bg-subtle rounded-2xl px-4 py-4 transition-all duration-150 active:scale-[0.98] active:brightness-95"
           >
             <p
-              className={`text-sm ${values.matchDate ? "text-[#191F28] font-semibold" : "text-[#C4C9D1]"}`}
+              className={`text-sm ${values.matchDate ? "text-foreground font-semibold" : "text-placeholder"}`}
             >
               {values.matchDate
                 ? formatDate(values.matchDate)
@@ -130,7 +130,7 @@ export default function CreateMatchPage() {
               height="14"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#C4C9D1"
+              stroke="var(--color-placeholder)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -153,16 +153,16 @@ export default function CreateMatchPage() {
                   type="button"
                   onClick={() => handleMatchTimeType(type)}
                   className={`flex flex-col items-center gap-1 py-4 rounded-2xl transition-all duration-150 active:scale-95 ${
-                    active ? "bg-primary" : "bg-[#F8F9FB]"
+                    active ? "bg-primary" : "bg-subtle"
                   }`}
                 >
                   <p
-                    className={`text-sm font-semibold ${active ? "text-white" : "text-[#191F28]"}`}
+                    className={`text-sm font-semibold ${active ? "text-white" : "text-foreground"}`}
                   >
                     {label}
                   </p>
                   <p
-                    className={`text-xs ${active ? "text-white/70" : "text-[#8B95A1]"}`}
+                    className={`text-xs ${active ? "text-white/70" : "text-muted-foreground"}`}
                   >
                     {sub}
                   </p>
@@ -187,7 +187,7 @@ export default function CreateMatchPage() {
                   className={`py-3.5 rounded-2xl text-xs font-semibold transition-all duration-150 active:scale-95 ${
                     active
                       ? "bg-primary text-white"
-                      : "bg-[#F8F9FB] text-[#191F28]"
+                      : "bg-subtle text-foreground"
                   }`}
                 >
                   {label}
@@ -216,7 +216,7 @@ export default function CreateMatchPage() {
             }}
           />
           {values.teamSize >= 4 && values.teamSize % 2 === 0 && (
-            <p className="text-xs text-[#8B95A1] mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
               팀당 {values.teamSize / 2 - 1}명 모집 (주장 제외)
             </p>
           )}
@@ -230,7 +230,7 @@ export default function CreateMatchPage() {
             <button
               type="button"
               onClick={() => setModal("captainA")}
-              className="flex flex-col items-center gap-3 bg-[#FFF5F5] rounded-2xl py-5 transition-all duration-150 active:scale-95"
+              className="flex flex-col items-center gap-3 bg-danger-subtle rounded-2xl py-5 transition-all duration-150 active:scale-95"
             >
               <div className="w-14 h-14 rounded-full bg-red-100 overflow-hidden flex items-center justify-center">
                 {captainA ? (
@@ -247,7 +247,7 @@ export default function CreateMatchPage() {
                 <p className="text-xs text-red-400 font-semibold mb-0.5">
                   A팀 캡틴
                 </p>
-                <p className="text-sm font-semibold text-[#191F28]">
+                <p className="text-sm font-semibold text-foreground">
                   {captainA ? captainA.nickname : "선택하기"}
                 </p>
               </div>
@@ -256,7 +256,7 @@ export default function CreateMatchPage() {
             <button
               type="button"
               onClick={() => setModal("captainB")}
-              className="flex flex-col items-center gap-3 bg-[#F0F4FF] rounded-2xl py-5 transition-all duration-150 active:scale-95"
+              className="flex flex-col items-center gap-3 bg-primary-subtle rounded-2xl py-5 transition-all duration-150 active:scale-95"
             >
               <div className="w-14 h-14 rounded-full bg-blue-100 overflow-hidden flex items-center justify-center">
                 {captainB ? (
@@ -273,7 +273,7 @@ export default function CreateMatchPage() {
                 <p className="text-xs text-blue-400 font-semibold mb-0.5">
                   B팀 캡틴
                 </p>
-                <p className="text-sm font-semibold text-[#191F28]">
+                <p className="text-sm font-semibold text-foreground">
                   {captainB ? captainB.nickname : "선택하기"}
                 </p>
               </div>

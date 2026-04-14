@@ -20,7 +20,7 @@ export const MatchStatusLabel = {
 } as const
 
 export const statusStyle: Record<MatchStatus, string> = {
-  OPEN: "bg-[#009655] text-white",
-  CLOSED: "bg-[#C33431] text-white",
-  FINISHED: "bg-[#8B95A1] text-white",
+  OPEN: "bg-success text-white",
+  CLOSED: "bg-danger text-white",
+  FINISHED: "bg-muted-foreground text-white",
 };

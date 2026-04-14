@@ -22,10 +22,10 @@ export function ScheduleMatchList({ selectedDate }: ScheduleMatchListProps) {
   if (isLoading) {
     return (
       <div className="px-4 md:px-5 mt-5">
-        <div className="h-5 w-28 bg-gray-200 rounded animate-pulse mb-3" />
+        <div className="h-5 w-28 bg-muted rounded animate-pulse mb-3" />
         <div className="flex flex-col gap-2">
           {[1, 2].map((i) => (
-            <div key={i} className="h-16 bg-[#F9FAFB] rounded-xl animate-pulse" />
+            <div key={i} className="h-16 bg-subtle rounded-xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -34,14 +34,14 @@ export function ScheduleMatchList({ selectedDate }: ScheduleMatchListProps) {
 
   return (
     <div className="px-4 md:px-5 mt-5">
-      <p className="text-sm md:text-base font-bold text-[#191F28] mb-3">
+      <p className="text-sm md:text-base font-bold text-foreground mb-3">
         {dateLabel}
       </p>
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 gap-1.5">
-          <p className="text-sm font-semibold text-[#191F28]">매치가 없어요</p>
-          <p className="text-xs text-[#8B95A1]">다른 날짜를 선택해보세요!</p>
+          <p className="text-sm font-semibold text-foreground">매치가 없어요</p>
+          <p className="text-xs text-muted-foreground">다른 날짜를 선택해보세요!</p>
         </div>
       ) : (
         <div className="flex flex-col gap-3">

@@ -13,10 +13,13 @@ function formatDate(dateStr: string) {
   return `${y}.${m}.${day}`;
 }
 
-export function AnnouncementCard({ announcement, onClick }: AnnouncementCardProps) {
+export function AnnouncementCard({
+  announcement,
+  onClick,
+}: AnnouncementCardProps) {
   return (
     <div
-      className="bg-[#F8F9FB] rounded-2xl px-5 py-5 active:scale-[0.98] transition-all duration-150 cursor-pointer"
+      className="bg-subtle rounded-2xl px-5 py-5 active:scale-[0.98] transition-all duration-150 cursor-pointer"
       onClick={onClick}
     >
       <h3 className="text-base md:text-lg font-bold text-primary mb-2.5">
@@ -24,15 +27,13 @@ export function AnnouncementCard({ announcement, onClick }: AnnouncementCardProp
       </h3>
 
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs text-[#8B95A1]">
+        <p className="text-xs text-muted-foreground">
           {formatDate(announcement.createdAt)}
         </p>
-        <p className="text-xs text-[#8B95A1]">
-          {announcement.author}
-        </p>
+        <p className="text-xs text-muted-foreground">{announcement.author}</p>
       </div>
 
-      <p className="text-sm text-[#4E5968] leading-relaxed line-clamp-3">
+      <p className="text-sm text-body leading-relaxed line-clamp-3">
         {announcement.content}
       </p>
     </div>

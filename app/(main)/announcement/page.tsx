@@ -9,7 +9,7 @@ export default function AnnouncementPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="px-4 md:px-5">
         <BackButton />
       </div>

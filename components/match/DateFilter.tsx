@@ -49,7 +49,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
           className="w-3 h-3 md:w-3.5 md:h-3.5"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#8B95A1"
+          stroke="var(--color-muted-foreground)"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -83,7 +83,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
                       ? "text-red-400"
                       : isSat
                         ? "text-blue-500"
-                        : "text-[#191F28]"
+                        : "text-foreground"
                 }`}
               >
                 {d.getDate()}
@@ -96,7 +96,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
                       ? "text-red-400"
                       : isSat
                         ? "text-blue-500"
-                        : "text-[#8B95A1]"
+                        : "text-muted-foreground"
                 }`}
               >
                 {DAYS[day]}
@@ -117,7 +117,7 @@ export function DateFilter({ selectedDate, onSelect }: DateFilterProps) {
           height="12"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#8B95A1"
+          stroke="var(--color-muted-foreground)"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"

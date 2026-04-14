@@ -37,7 +37,7 @@ export default function SignupPage() {
   } = useSignup();
 
   return (
-    <div className="flex flex-col min-h-screen px-6 bg-white">
+    <div className="flex flex-col min-h-screen px-6 bg-background">
       <BackButton />
 
       <div className="mb-6 md:mb-8">
@@ -46,7 +46,7 @@ export default function SignupPage() {
 
       <div className="flex items-center gap-4 mb-8">
         <label className="cursor-pointer">
-          <div className="w-18 h-18 rounded-full bg-[#F2F4F6] flex items-center justify-center overflow-hidden border border-[#E5E8EB]">
+          <div className="w-18 h-18 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-line">
             {preview ? (
               <img
                 src={preview}
@@ -54,7 +54,7 @@ export default function SignupPage() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <span className="text-2xl text-[#8B95A1]">+</span>
+              <span className="text-2xl text-muted-foreground">+</span>
             )}
           </div>
           <input
@@ -65,11 +65,11 @@ export default function SignupPage() {
           />
         </label>
         <div>
-          <p className="text-sm font-medium text-[#191F28]">
+          <p className="text-sm font-medium text-foreground">
             프로필 이미지 선택
-            <span className="text-xs text-[#8B95A1] ml-1">(선택사항)</span>
+            <span className="text-xs text-muted-foreground ml-1">(선택사항)</span>
           </p>
-          <p className="text-xs text-[#8B95A1]">
+          <p className="text-xs text-muted-foreground">
             갤러리에서 사진을 선택하거나
             <br />
             카메라로 촬영하세요
@@ -133,7 +133,7 @@ export default function SignupPage() {
 
         <div className="flex flex-col gap-6 mb-12">
           <div>
-            <p className="text-sm font-semibold text-[#191F28] mb-3">
+            <p className="text-sm font-semibold text-foreground mb-3">
               축구 실력
               <Required />
             </p>
@@ -145,7 +145,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <p className="text-sm font-semibold text-[#191F28] mb-3">
+            <p className="text-sm font-semibold text-foreground mb-3">
               성별
               <Required />
             </p>

@@ -11,7 +11,7 @@
     const { values, handleChange, isValid, handleLogin, isLoading } = useLogin();
 
     return (
-      <div className="flex flex-col min-h-screen px-6 bg-white">
+      <div className="flex flex-col min-h-screen px-6 bg-background">
         <div className="flex-1 flex items-center justify-center flex-col">
           <SlideIn delay={0}>
             <p className="text-6xl md:text-[85px] font-rocket">밥축</p>
@@ -46,7 +46,7 @@
             <Button type="submit" disabled={!isValid || isLoading}>
               {isLoading ? "로그인 하는중..." : "로그인"}
             </Button>
-            <p className="text-center text-sm text-[#8B95A1]">
+            <p className="text-center text-sm text-muted-foreground">
               계정이 없다면?{" "}
               <button
                 type="button"

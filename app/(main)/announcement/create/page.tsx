@@ -11,7 +11,7 @@ function Required() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-sm font-rocket text-[#8B95A1] mb-3">{children}</p>
+    <p className="text-sm font-rocket text-muted-foreground mb-3">{children}</p>
   );
 }
 
@@ -20,7 +20,7 @@ export default function CreateAnnouncementPage() {
     useCreateAnnouncement();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="px-5">
         <BackButton />
       </div>
@@ -56,14 +56,14 @@ export default function CreateAnnouncementPage() {
             onChange={(e) => handleChange("content", e.target.value)}
             placeholder="공지사항 내용을 입력하세요"
             rows={8}
-            className="w-full bg-[#F8F9FB] rounded-2xl px-4 py-4 text-sm text-[#191F28] outline-none resize-none placeholder:text-[#C4C9D1] focus:ring-2 focus:ring-primary transition-all"
+            className="w-full bg-subtle rounded-2xl px-4 py-4 text-sm text-foreground outline-none resize-none placeholder:text-placeholder focus:ring-2 focus:ring-primary transition-all"
           />
         </div>
 
         <div>
           <Label>이미지</Label>
           <label className="cursor-pointer">
-            <div className="w-full aspect-video rounded-2xl bg-[#F8F9FB] border-2 border-dashed border-[#E5E8EB] flex items-center justify-center overflow-hidden transition-all active:scale-[0.98]">
+            <div className="w-full aspect-video rounded-2xl bg-subtle border-2 border-dashed border-line flex items-center justify-center overflow-hidden transition-all active:scale-[0.98]">
               {preview ? (
                 <img
                   src={preview}
@@ -72,12 +72,12 @@ export default function CreateAnnouncementPage() {
                 />
               ) : (
                 <div className="flex flex-col items-center gap-2">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4C9D1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-placeholder)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />
                     <polyline points="21 15 16 10 5 21" />
                   </svg>
-                  <p className="text-xs text-[#C4C9D1]">이미지를 선택하세요</p>
+                  <p className="text-xs text-placeholder">이미지를 선택하세요</p>
                 </div>
               )}
             </div>

@@ -31,7 +31,7 @@ export function Input({
         style={{
           top: isActive ? "0px" : "18px",
           fontSize: isActive ? "12px" : "16px",
-          color: focused ? "var(--color-primary)" : "#8B95A1",
+          color: focused ? "var(--color-primary)" : "var(--color-muted-foreground)",
         }}
       >
         {label}
@@ -53,7 +53,7 @@ export function Input({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-transparent outline-none text-base text-[#191F28] pt-5 pb-2 font-rocket pr-8"
+        className="w-full bg-transparent outline-none text-base text-foreground pt-5 pb-2 font-rocket pr-8"
       />
 
       {isPassword && focused && (
@@ -61,7 +61,7 @@ export function Input({
           type="button"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => setShow((prev) => !prev)}
-          className="absolute right-2 bottom-5 text-[#8B95A1] active:opacity-60 transition-opacity"
+          className="absolute right-2 bottom-5 text-muted-foreground active:opacity-60 transition-opacity"
         >
           {show ? (
             <svg
@@ -69,7 +69,7 @@ export function Input({
               height="20"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#8B95A1"
+              stroke="var(--color-muted-foreground)"
               strokeWidth="1.6"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -83,7 +83,7 @@ export function Input({
               height="20"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#8B95A1"
+              stroke="var(--color-muted-foreground)"
               strokeWidth="1.6"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -97,7 +97,7 @@ export function Input({
         </button>
       )}
 
-      <div className="absolute bottom-0 left-0 w-full h-px bg-[#E5E8EB]" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-line" />
       <div
         className="absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200"
         style={{ width: focused ? "100%" : "0%" }}

@@ -37,7 +37,7 @@ function EditForm({
   } = useEditProfile(user);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="px-5">
         <BackButton />
       </div>
@@ -48,7 +48,7 @@ function EditForm({
 
       <div className="flex items-center gap-4 px-4 md:px-6 mb-8">
         <label className="cursor-pointer">
-          <div className="w-18 h-18 rounded-full bg-[#F2F4F6] flex items-center justify-center overflow-hidden border border-[#E5E8EB]">
+          <div className="w-18 h-18 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-line">
             {preview ? (
               <img
                 src={preview}
@@ -56,7 +56,7 @@ function EditForm({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="#C4C9D1">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="var(--color-placeholder)">
                 <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
               </svg>
             )}
@@ -69,11 +69,11 @@ function EditForm({
           />
         </label>
         <div>
-          <p className="text-sm font-medium text-[#191F28]">
+          <p className="text-sm font-medium text-foreground">
             프로필 이미지 변경
-            <span className="text-xs text-[#8B95A1] ml-1">(선택사항)</span>
+            <span className="text-xs text-muted-foreground ml-1">(선택사항)</span>
           </p>
-          <p className="text-xs text-[#8B95A1]">탭하여 새 사진을 선택하세요</p>
+          <p className="text-xs text-muted-foreground">탭하여 새 사진을 선택하세요</p>
         </div>
       </div>
 
@@ -109,7 +109,7 @@ function EditForm({
         </div>
 
         <div className="mb-12">
-          <p className="text-sm font-semibold text-[#191F28] mb-3">
+          <p className="text-sm font-semibold text-foreground mb-3">
             축구 실력 <Required />
           </p>
           <OptionSelector
@@ -133,12 +133,12 @@ export default function EditProfilePage() {
 
   if (isLoading || !user) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-background">
         <div className="px-5">
           <BackButton />
         </div>
         <div className="px-4 md:px-6 pt-2 pb-6">
-          <div className="h-8 w-32 bg-gray-200 rounded animate-pulse" />
+          <div className="h-8 w-32 bg-muted rounded animate-pulse" />
         </div>
       </div>
     );

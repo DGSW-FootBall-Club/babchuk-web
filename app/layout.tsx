@@ -3,6 +3,10 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/shared/lib/queryClient";
 import localFont from "next/font/local";
+import {
+  ThemeProvider,
+  themeNoFlashScript,
+} from "@/shared/theme/ThemeProvider";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -48,10 +52,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${pretendard.variable} ${aRocket.variable}`}>
-      <body className="font-pretendard">
-        <QueryClientProvider client={queryClient}>
-          <div className="max-w-240 mx-auto min-h-screen">{children}</div>
-        </QueryClientProvider>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
+      </head>
+      <body className="font-pretendard bg-background text-foreground">
+        <ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <div className="max-w-240 mx-auto min-h-screen">{children}</div>
+          </QueryClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

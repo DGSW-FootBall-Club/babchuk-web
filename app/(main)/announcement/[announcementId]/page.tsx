@@ -16,22 +16,22 @@ export default function AnnouncementDetailPage({
 
   if (isLoading) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-background">
         <div className="px-4 md:px-5">
           <BackButton />
         </div>
         <div className="px-4 md:px-5 flex flex-col animate-pulse">
-          <div className="w-full aspect-video bg-gray-200 rounded-xl mb-6" />
-          <div className="h-6 w-2/3 bg-gray-200 rounded mb-3" />
+          <div className="w-full aspect-video bg-muted rounded-xl mb-6" />
+          <div className="h-6 w-2/3 bg-muted rounded mb-3" />
           <div className="flex items-center gap-2 mb-6">
-            <div className="h-3 w-20 bg-gray-200 rounded" />
-            <div className="h-3 w-16 bg-gray-200 rounded" />
+            <div className="h-3 w-20 bg-muted rounded" />
+            <div className="h-3 w-16 bg-muted rounded" />
           </div>
-          <div className="w-full h-px bg-[#F2F4F6] mb-6" />
+          <div className="w-full h-px bg-muted mb-6" />
           <div className="flex flex-col gap-2">
-            <div className="h-4 w-full bg-gray-200 rounded" />
-            <div className="h-4 w-full bg-gray-200 rounded" />
-            <div className="h-4 w-4/5 bg-gray-200 rounded" />
+            <div className="h-4 w-full bg-muted rounded" />
+            <div className="h-4 w-full bg-muted rounded" />
+            <div className="h-4 w-4/5 bg-muted rounded" />
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default function AnnouncementDetailPage({
   if (!announcement) return null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-background">
       {!editing && (
         <div className="px-4 md:px-5">
           <BackButton />

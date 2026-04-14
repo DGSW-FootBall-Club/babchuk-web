@@ -18,7 +18,7 @@ export function OptionSelector<T extends string>({
 }: OptionSelectorProps<T>) {
   return (
     <div>
-      <p className="text-sm font-semibold text-[#191F28] mb-3">
+      <p className="text-sm font-semibold text-foreground mb-3">
         {title}
       </p>
       <div
@@ -32,9 +32,9 @@ export function OptionSelector<T extends string>({
             onClick={() => onChange(opt.value)}
             className="h-12 rounded-xl border text-base font-medium transition-all duration-200  -95"
             style={{
-              borderColor: selected === opt.value ? "var(--color-primary)" : "#E5E8EB",
-              color: selected === opt.value ? "var(--color-primary)" : "#8B95A1",
-              backgroundColor: selected === opt.value ? "#EEF3FF" : "white",
+              borderColor: selected === opt.value ? "var(--color-primary)" : "var(--color-line)",
+              color: selected === opt.value ? "var(--color-primary)" : "var(--color-muted-foreground)",
+              backgroundColor: selected === opt.value ? "var(--color-primary-subtle)" : "white",
               transform: selected === opt.value ? "scale(1.03)" : "scale(1)",
             }}
           >
