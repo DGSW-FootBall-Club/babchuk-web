@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { BackButton } from "@/components/BackButton";
 import { MemberSkeleton } from "@/components/member/MemberSkeleton";
 import Image from "next/image";
+import { ProfileImage } from "@/components/ProfileImage";
 
 export default function MemberPage() {
   const { data: users, isLoading } = useQuery({
@@ -68,24 +69,24 @@ export default function MemberPage() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-muted overflow-hidden shrink-0">
-                    <img
+                    <ProfileImage
                       src={user.profileImage}
-                      alt={user.nickname}
-                      className="w-full h-full object-cover"
+                      alt={user.name}
+                      className="w-full h-full"
                     />
                   </div>
                   <p className="text-sm font-medium text-foreground">
-                    {user.nickname}
+                    {user.name}
                   </p>
                 </div>
                 <p className="text-sm text-foreground text-center">
-                  {user.grade}
+                  {user.studentId}
                 </p>
                 <p className="text-sm text-foreground text-center">
-                  {SkillTypeLabel[user.skillType]}
+                  {user.skillType ? SkillTypeLabel[user.skillType] : "-"}
                 </p>
                 <p className="text-sm text-foreground text-center">
-                  {GenderTypeLabel[user.gender]}
+                  {user.gender ? GenderTypeLabel[user.gender] : "-"}
                 </p>
               </div>
             ))}

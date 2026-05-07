@@ -1,8 +1,8 @@
-import { SkillType } from "@/shared/types/Enum";
+import { GenderType, SkillType } from "@/shared/types/Enum";
 
 export interface UpdateUserRequest {
   profileImage?: string;
-  nickname?: string;
-  grade?: number;
+  name?: string;
   skillType?: SkillType;
+  gender?: GenderType;
 }

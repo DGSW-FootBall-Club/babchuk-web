@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userApi } from "@/feature/user/api/userApi";
 import { UserResponse } from "@/feature/user/types/response/UserResponse";
 import { CenterModal } from "@/components/CenterModal";
+import { ProfileImage } from "@/components/ProfileImage";
 
 interface UserSelectModalProps {
   title: string;
@@ -73,18 +74,18 @@ export function UserSelectModal({
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-muted overflow-hidden shrink-0">
-                <img
+                <ProfileImage
                   src={user.profileImage}
-                  alt={user.nickname}
-                  className="w-full h-full object-cover"
+                  alt={user.name}
+                  className="w-full h-full"
                 />
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium text-foreground">
-                  {user.nickname}
+                  {user.name}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {user.grade}학번
+                  {user.studentId}
                 </p>
               </div>
             </div>

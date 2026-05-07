@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { userApi } from '@/feature/user/api/userApi'
 import { UserResponse } from '@/feature/user/types/response/UserResponse'
-import { SkillType } from '@/shared/types/Enum'
+import { GenderType, SkillType } from '@/shared/types/Enum'
 
 const toBase64 = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
@@ -16,9 +16,9 @@ const toBase64 = (file: File): Promise<string> =>
 export function useEditProfile(user: UserResponse) {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const [nickname, setNickname] = useState(user.nickname)
-  const [grade, setGrade] = useState(String(user.grade))
-  const [skill, setSkill] = useState<SkillType>(user.skillType)
+  const [name, setName] = useState(user.name)
+  const [skill, setSkill] = useState<SkillType | null>(user.skillType)
+  const [gender, setGender] = useState<GenderType | null>(user.gender)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [preview, setPreview] = useState(user.profileImage || '')
   const [isLoading, setIsLoading] = useState(false)
@@ -30,17 +30,18 @@ export function useEditProfile(user: UserResponse) {
     setPreview(URL.createObjectURL(file))
   }
 
-  const isValid = nickname.length > 0 && grade.length === 4
+  const isValid = name.length > 0 && skill !== null && gender !== null
 
   const handleSubmit = async () => {
     if (isLoading) return
+    if (!skill || !gender) return
     try {
       setIsLoading(true)
       const profileImage = imageFile ? await toBase64(imageFile) : undefined
       await userApi.updateMyInfo({
-        nickname,
-        grade: Number(grade),
+        name,
         skillType: skill,
+        gender,
         profileImage,
       })
       await queryClient.invalidateQueries({ queryKey: ['myInfo'] })
@@ -53,5 +54,5 @@ export function useEditProfile(user: UserResponse) {
     }
   }
 
-  return { nickname, setNickname, grade, setGrade, skill, setSkill, preview, handleImage, isValid, isLoading, handleSubmit }
+  return { name, setName, skill, setSkill, gender, setGender, preview, handleImage, isValid, isLoading, handleSubmit }
 }

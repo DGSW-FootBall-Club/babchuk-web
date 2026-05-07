@@ -127,7 +127,7 @@ export default function MatchDetailPage({
                   className="w-11 h-11 md:w-14 md:h-14"
                 />
                 <p className="text-white font-bold text-base">
-                  {match.teamA.captain.nickname} 팀
+                  {match.teamA.captain.name} 팀
                 </p>
                 <div
                   className={`w-5 h-5 rounded-full border-2 ${
@@ -156,7 +156,7 @@ export default function MatchDetailPage({
                   className="w-11 h-11 md:w-14 md:h-14"
                 />
                 <p className="text-white font-bold text-base">
-                  {match.teamB.captain.nickname} 팀
+                  {match.teamB.captain.name} 팀
                 </p>
                 <div
                   className={`w-5 h-5 rounded-full border-2 ${
@@ -245,7 +245,7 @@ export default function MatchDetailPage({
           >
             {actionLoading
               ? "처리 중..."
-              : `${selectedTeam === "A" ? match.teamA.captain.nickname : match.teamB.captain.nickname} 팀으로 신청하기`}
+              : `${selectedTeam === "A" ? match.teamA.captain.name : match.teamB.captain.name} 팀으로 신청하기`}
           </button>
         )}
       </div>
