@@ -1,15 +1,17 @@
 "use client";
 
 import "@ncdai/react-wheel-picker/style.css";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   WheelPicker,
   WheelPickerWrapper,
   type WheelPickerOption,
 } from "@ncdai/react-wheel-picker";
 import { CenterModal } from "@/components/CenterModal";
+import { getKSTNow } from "@/shared/utils/time";
 
 interface TimePickerModalProps {
+  matchDate?: string;
   startTime: string;
   onConfirm: (start: string) => void;
   onClose: () => void;
@@ -23,47 +25,56 @@ export const formatTime = (time: string) => {
   return `${ampm} ${hour}:${String(m).padStart(2, "0")}`;
 };
 
-const hourOptions: WheelPickerOption<number>[] = Array.from(
-  { length: 24 },
-  (_, i) => ({
-    label: i.toString().padStart(2, "0"),
-    value: i,
-  }),
-);
-
-const minuteOptions: WheelPickerOption<number>[] = Array.from(
-  { length: 60 },
-  (_, i) => ({
-    label: i.toString().padStart(2, "0"),
-    value: i,
-  }),
-);
-
-function getKSTNow() {
-  const now = new Date();
-  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-  return { h: kst.getHours(), m: kst.getMinutes() };
-}
-
 export function TimePickerModal({
+  matchDate,
   startTime,
   onConfirm,
   onClose,
 }: TimePickerModalProps) {
+  const kstNow = useMemo(() => getKSTNow(), []);
+  const isToday = matchDate === kstNow.date;
+
   const getInitValues = () => {
     if (startTime) {
-      return {
-        h: Number(startTime.split(":")[0]),
-        m: Number(startTime.split(":")[1]),
-      };
+      const h = Number(startTime.split(":")[0]);
+      const m = Number(startTime.split(":")[1]);
+      if (isToday && (h < kstNow.h || (h === kstNow.h && m < kstNow.m))) {
+        return { h: kstNow.h, m: kstNow.m };
+      }
+      return { h, m };
     }
-    return getKSTNow();
+    return isToday ? { h: kstNow.h, m: kstNow.m } : { h: 12, m: 0 };
   };
 
-  const { h: initH, m: initM } = getInitValues();
+  const init = getInitValues();
+  const [hour, setHour] = useState<number>(init.h);
+  const [minute, setMinute] = useState<number>(init.m);
 
-  const [hour, setHour] = useState<number>(initH);
-  const [minute, setMinute] = useState<number>(initM);
+  const hourOptions: WheelPickerOption<number>[] = useMemo(() => {
+    const start = isToday ? kstNow.h : 0;
+    return Array.from({ length: 24 - start }, (_, i) => ({
+      label: (start + i).toString().padStart(2, "0"),
+      value: start + i,
+    }));
+  }, [isToday, kstNow.h]);
+
+  const minuteOptions: WheelPickerOption<number>[] = useMemo(() => {
+    const start = isToday && hour === kstNow.h ? kstNow.m : 0;
+    return Array.from({ length: 60 - start }, (_, i) => ({
+      label: (start + i).toString().padStart(2, "0"),
+      value: start + i,
+    }));
+  }, [isToday, hour, kstNow.h, kstNow.m]);
+
+  useEffect(() => {
+    if (
+      minuteOptions.length > 0 &&
+      !minuteOptions.some((o) => o.value === minute)
+    ) {
+      setMinute(minuteOptions[0].value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minuteOptions]);
 
   const handleConfirm = () => {
     onConfirm(
@@ -94,18 +105,16 @@ export function TimePickerModal({
       `}</style>
 
       <div className="px-6 pt-5 pb-6">
-        <p className="text-base font-bold text-foreground mb-5">
-          시간 선택
-        </p>
+        <p className="text-base font-bold text-foreground mb-5">시간 선택</p>
 
         <div className="rwp flex gap-2 justify-center mb-6">
           <div className="flex-1">
             <WheelPickerWrapper>
               <WheelPicker
                 options={hourOptions}
-                defaultValue={initH}
+                defaultValue={init.h}
                 onValueChange={(v) => setHour(v as number)}
-                infinite
+                infinite={!isToday}
                 visibleCount={12}
                 optionItemHeight={44}
               />
@@ -117,10 +126,15 @@ export function TimePickerModal({
           <div className="flex-1">
             <WheelPickerWrapper>
               <WheelPicker
+                key={`minute-${hour}`}
                 options={minuteOptions}
-                defaultValue={initM}
+                defaultValue={
+                  minuteOptions.some((o) => o.value === minute)
+                    ? minute
+                    : minuteOptions[0]?.value
+                }
                 onValueChange={(v) => setMinute(v as number)}
-                infinite
+                infinite={!isToday || hour > kstNow.h}
                 visibleCount={12}
                 optionItemHeight={44}
               />

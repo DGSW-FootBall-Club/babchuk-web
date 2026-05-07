@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button } from "@/components/Button";
 import { BackButton } from "@/components/BackButton";
 import { Input } from "@/components/Input";
+import { NumberStepperInput } from "@/components/NumberStepperInput";
+import { ProfileImage } from "@/components/ProfileImage";
 import { UserSelectModal } from "@/components/match/UserSelectModal";
 import { DatePickerModal } from "@/components/match/DatePickerModal";
 import {
@@ -13,6 +15,7 @@ import {
 import { useCreateMatch } from "@/feature/match/hooks/useCreateMatch";
 import { UserResponse } from "@/feature/user/types/response/UserResponse";
 import { Header } from "@/components/Header";
+import { isPastTimeOnDate } from "@/shared/utils/time";
 
 type ModalType = "date" | "time" | "captainA" | "captainB" | null;
 type MatchTimeType = "lunch" | "dinner" | "custom" | null;
@@ -55,7 +58,12 @@ export default function CreateMatchPage() {
     handleChange("teamBCaptainId", user.id);
   };
 
+  const isLunchPast = isPastTimeOnDate(values.matchDate, LUNCH_TIME);
+  const isDinnerPast = isPastTimeOnDate(values.matchDate, DINNER_TIME);
+
   const handleMatchTimeType = (type: MatchTimeType) => {
+    if (type === "lunch" && isLunchPast) return;
+    if (type === "dinner" && isDinnerPast) return;
     setMatchTimeType(type);
     if (type === "lunch") handleChange("matchTime", LUNCH_TIME);
     else if (type === "dinner") handleChange("matchTime", DINNER_TIME);
@@ -147,24 +155,30 @@ export default function CreateMatchPage() {
           <div className="grid grid-cols-3 gap-2">
             {timeTypeButtons.map(({ label, sub, type }) => {
               const active = matchTimeType === type;
+              const disabled =
+                (type === "lunch" && isLunchPast) ||
+                (type === "dinner" && isDinnerPast);
               return (
                 <button
                   key={type}
                   type="button"
+                  disabled={disabled}
                   onClick={() => handleMatchTimeType(type)}
-                  className={`flex flex-col items-center gap-1 py-4 rounded-2xl transition-all duration-150 active:scale-95 ${
-                    active ? "bg-primary" : "bg-subtle"
-                  }`}
+                  className={`flex flex-col items-center gap-1 py-4 rounded-2xl transition-all duration-150 ${
+                    disabled
+                      ? "bg-subtle opacity-40 cursor-not-allowed"
+                      : "active:scale-95"
+                  } ${active && !disabled ? "bg-primary" : "bg-subtle"}`}
                 >
                   <p
-                    className={`text-sm font-semibold ${active ? "text-white" : "text-foreground"}`}
+                    className={`text-sm font-semibold ${active && !disabled ? "text-white" : "text-foreground"}`}
                   >
                     {label}
                   </p>
                   <p
-                    className={`text-xs ${active ? "text-white/70" : "text-muted-foreground"}`}
+                    className={`text-xs ${active && !disabled ? "text-white/70" : "text-muted-foreground"}`}
                   >
-                    {sub}
+                    {disabled ? "지난 시간" : sub}
                   </p>
                 </button>
               );
@@ -198,22 +212,17 @@ export default function CreateMatchPage() {
         </div>
 
         <div>
-          <Input
+          <NumberStepperInput
             label={
               <>
                 필요한 인원 수 (주장 포함) <Required />
               </>
             }
-            type="number"
-            value={values.teamSize === 0 ? "" : String(values.teamSize)}
-            onChange={(v) => {
-              if (v === "") {
-                handleChange("teamSize", 0);
-                return;
-              }
-              const num = Number(v);
-              if (num <= 20) handleChange("teamSize", num);
-            }}
+            value={values.teamSize}
+            onChange={(v) => handleChange("teamSize", v)}
+            min={0}
+            max={20}
+            step={2}
           />
           {values.teamSize >= 4 && values.teamSize % 2 === 0 && (
             <p className="text-xs text-muted-foreground mt-1">
@@ -234,10 +243,10 @@ export default function CreateMatchPage() {
             >
               <div className="w-14 h-14 rounded-full bg-red-100 overflow-hidden flex items-center justify-center">
                 {captainA ? (
-                  <img
+                  <ProfileImage
                     src={captainA.profileImage}
-                    alt={captainA.nickname}
-                    className="w-full h-full object-cover"
+                    alt={captainA.name}
+                    className="w-full h-full"
                   />
                 ) : (
                   <p className="text-red-300 text-2xl">?</p>
@@ -248,7 +257,7 @@ export default function CreateMatchPage() {
                   A팀 캡틴
                 </p>
                 <p className="text-sm font-semibold text-foreground">
-                  {captainA ? captainA.nickname : "선택하기"}
+                  {captainA ? captainA.name : "선택하기"}
                 </p>
               </div>
             </button>
@@ -260,10 +269,10 @@ export default function CreateMatchPage() {
             >
               <div className="w-14 h-14 rounded-full bg-blue-100 overflow-hidden flex items-center justify-center">
                 {captainB ? (
-                  <img
+                  <ProfileImage
                     src={captainB.profileImage}
-                    alt={captainB.nickname}
-                    className="w-full h-full object-cover"
+                    alt={captainB.name}
+                    className="w-full h-full"
                   />
                 ) : (
                   <p className="text-blue-300 text-2xl">?</p>
@@ -274,7 +283,7 @@ export default function CreateMatchPage() {
                   B팀 캡틴
                 </p>
                 <p className="text-sm font-semibold text-foreground">
-                  {captainB ? captainB.nickname : "선택하기"}
+                  {captainB ? captainB.name : "선택하기"}
                 </p>
               </div>
             </button>
@@ -295,6 +304,7 @@ export default function CreateMatchPage() {
       )}
       {modal === "time" && (
         <TimePickerModal
+          matchDate={values.matchDate}
           startTime={values.matchTime}
           onConfirm={(v) => {
             handleChange("matchTime", v);
