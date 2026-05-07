@@ -8,10 +8,27 @@ import { BackButton } from "@/components/BackButton";
 import { LoadingSkeleton } from "@/components/myinfo/LoadingSkeleton";
 import ThemeSwitch from "@/components/ThemeSwitch";
 
-const menuItems = [
-  { label: "이용약관", href: "#" },
-  { label: "개인정보 처리방침", href: "#" },
-  { label: "문의하기", href: "#" },
+type MenuItem =
+  | { label: string; type: "external"; href: string }
+  | { label: string; type: "internal"; href: string }
+  | { label: string; type: "alert"; message: string };
+
+const menuItems: MenuItem[] = [
+  {
+    label: "이용약관",
+    type: "internal",
+    href: "/terms",
+  },
+  {
+    label: "개인정보 처리방침",
+    type: "internal",
+    href: "/privacy",
+  },
+  {
+    label: "문의하기",
+    type: "alert",
+    message: "3307 김은찬 플로우로 문의해주세요",
+  },
 ];
 
 export default function MyInfoPage() {
@@ -51,7 +68,7 @@ export default function MyInfoPage() {
                 )}
               </div>
               <p className="text-xl font-bold text-foreground">
-                {user.nickname}
+                {user.name}
               </p>
             </div>
             <button
@@ -66,51 +83,71 @@ export default function MyInfoPage() {
             <div className="bg-subtle rounded-xl p-4">
               <p className="text-xs text-muted-foreground mb-1.5">성별</p>
               <div className="flex items-center gap-2">
-                <img
-                  src={
-                    user.gender === "MALE"
-                      ? "/icons/male.svg"
-                      : "/icons/female.svg"
-                  }
-                  alt={user.gender === "MALE" ? "male" : "female"}
-                  width={16}
-                  height={16}
-                  className="mb-0.5"
-                />
-                <p className="text-base font-bold text-foreground">
-                  {GenderTypeLabel[user.gender]}
-                </p>
+                {user.gender ? (
+                  <>
+                    <img
+                      src={
+                        user.gender === "MALE"
+                          ? "/icons/male.svg"
+                          : "/icons/female.svg"
+                      }
+                      alt={user.gender === "MALE" ? "male" : "female"}
+                      width={16}
+                      height={16}
+                      className="mb-0.5"
+                    />
+                    <p className="text-base font-bold text-foreground">
+                      {GenderTypeLabel[user.gender]}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-base font-bold text-muted-foreground">
+                    미설정
+                  </p>
+                )}
               </div>
             </div>
             <div className="bg-subtle rounded-xl p-4">
               <p className="text-xs text-muted-foreground mb-1.5">축구 실력</p>
               <div className="flex items-center gap-2">
-                <img
-                  src={
-                    user.skillType === "BEGINNER"
-                      ? "/icons/beginner.svg"
-                      : user.skillType === "INTERMEDIATE"
-                        ? "/icons/intermediate.svg"
-                        : "/icons/expert.svg"
-                  }
-                  alt={user.skillType}
-                  width={30}
-                  height={30}
-                />
-                <p className="text-base font-bold text-foreground">
-                  {SkillTypeLabel[user.skillType]}
-                </p>
+                {user.skillType ? (
+                  <>
+                    <img
+                      src={
+                        user.skillType === "BEGINNER"
+                          ? "/icons/beginner.svg"
+                          : user.skillType === "INTERMEDIATE"
+                            ? "/icons/intermediate.svg"
+                            : "/icons/expert.svg"
+                      }
+                      alt={user.skillType}
+                      width={30}
+                      height={30}
+                    />
+                    <p className="text-base font-bold text-foreground">
+                      {SkillTypeLabel[user.skillType]}
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-base font-bold text-muted-foreground">
+                    미설정
+                  </p>
+                )}
               </div>
             </div>
           </div>
 
-          <div className="bg-primary rounded-xl p-5">
+          <a
+            href="https://www.youtube.com/watch?v=-0OvfnYe5Go"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-primary rounded-xl p-5 block transition-all active:scale-[0.98]"
+          >
             <p className="text-xs text-white/70 mb-1">학번</p>
             <p className="text-2xl font-bold text-white">
-              {String(user.grade).charAt(0)}학년 {String(user.grade).charAt(1)}
-              반 {Number(String(user.grade).slice(2))}번
+              {user.grade}학년 {user.room}반 {user.number}번
             </p>
-          </div>
+          </a>
         </div>
 
         <div className="flex-1 flex flex-col gap-3">
@@ -128,27 +165,60 @@ export default function MyInfoPage() {
             <p className="text-xs font-semibold text-muted-foreground px-5 pt-5 pb-2">
               고객센터
             </p>
-            {menuItems.map((item, index) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`flex items-center justify-between px-5 py-4 ${index !== menuItems.length - 1 ? "border-b border-muted" : ""}`}
-              >
-                <p className="text-base text-foreground">{item.label}</p>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--color-foreground)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            {menuItems.map((item, index) => {
+              const className = `flex items-center justify-between px-5 py-4 w-full text-left ${index !== menuItems.length - 1 ? "border-b border-muted" : ""}`;
+              const content = (
+                <>
+                  <p className="text-base text-foreground">{item.label}</p>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--color-foreground)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </>
+              );
+
+              if (item.type === "external") {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={className}
+                  >
+                    {content}
+                  </a>
+                );
+              }
+              if (item.type === "internal") {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => router.push(item.href)}
+                    className={`${className} cursor-pointer`}
+                  >
+                    {content}
+                  </button>
+                );
+              }
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => alert(item.message)}
+                  className={`${className} cursor-pointer`}
                 >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </a>
-            ))}
+                  {content}
+                </button>
+              );
+            })}
           </div>
 
           <div className="bg-background rounded-2xl overflow-hidden">

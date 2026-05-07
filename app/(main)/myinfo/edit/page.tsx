@@ -2,16 +2,11 @@
 
 import { BackButton } from "@/components/BackButton";
 import { Input } from "@/components/Input";
-import { OptionSelector } from "@/components/OptionSelector";
 import { Button } from "@/components/Button";
+import { ChoiceCard } from "@/components/ChoiceCard";
+import { GENDER_OPTIONS, SKILL_OPTIONS } from "@/shared/constants/profileOptions";
 import { useMyInfo } from "@/feature/user/hooks/useMyInfo";
 import { useEditProfile } from "@/feature/user/hooks/useEditProfile";
-
-const skillOptions = [
-  { label: "초급", value: "BEGINNER" as const },
-  { label: "중급", value: "INTERMEDIATE" as const },
-  { label: "고수", value: "EXPERT" as const },
-];
 
 function Required() {
   return <span className="text-red-500 ml-0.5">*</span>;
@@ -23,12 +18,12 @@ function EditForm({
   user: NonNullable<ReturnType<typeof useMyInfo>["user"]>;
 }) {
   const {
-    nickname,
-    setNickname,
-    grade,
-    setGrade,
+    name,
+    setName,
     skill,
     setSkill,
+    gender,
+    setGender,
     preview,
     handleImage,
     isValid,
@@ -42,11 +37,11 @@ function EditForm({
         <BackButton />
       </div>
 
-      <div className="px-4 md:px-6 pt-2 pb-6 md:pb-8">
+      <div className="px-8 md:px-10 pt-2 pb-6 md:pb-8">
         <p className="text-2xl md:text-3xl font-rocket">프로필 수정</p>
       </div>
 
-      <div className="flex items-center gap-4 px-4 md:px-6 mb-8">
+      <div className="flex items-center gap-4 px-8 md:px-10 mb-8">
         <label className="cursor-pointer">
           <div className="w-18 h-18 rounded-full bg-muted flex items-center justify-center overflow-hidden border border-line">
             {preview ? (
@@ -82,7 +77,7 @@ function EditForm({
           e.preventDefault();
           if (isValid) handleSubmit();
         }}
-        className="flex flex-col px-4 md:px-6 pb-16"
+        className="flex flex-col px-8 md:px-10 pb-8"
       >
         <div className="flex flex-col gap-8 mb-8">
           <Input
@@ -92,32 +87,43 @@ function EditForm({
               </>
             }
             type="text"
-            value={nickname}
-            onChange={setNickname}
-          />
-          <Input
-            label={
-              <>
-                학번 (예: 3307) <Required />
-              </>
-            }
-            type="number"
-            value={grade}
-            onChange={setGrade}
-            maxLength={4}
+            value={name}
+            onChange={setName}
           />
         </div>
 
+        <div className="mb-8">
+          <p className="text-base font-semibold text-foreground mb-4">
+            성별 <Required />
+          </p>
+          <div className="grid grid-cols-2 gap-3 p-2">
+            {GENDER_OPTIONS.map((opt) => (
+              <ChoiceCard
+                key={opt.value}
+                label={opt.label}
+                icon={opt.icon}
+                selected={gender === opt.value}
+                onClick={() => setGender(opt.value)}
+              />
+            ))}
+          </div>
+        </div>
+
         <div className="mb-12">
-          <p className="text-sm font-semibold text-foreground mb-3">
+          <p className="text-base font-semibold text-foreground mb-4">
             축구 실력 <Required />
           </p>
-          <OptionSelector
-            title=""
-            options={skillOptions}
-            selected={skill}
-            onChange={setSkill}
-          />
+          <div className="grid grid-cols-3 gap-3 p-2">
+            {SKILL_OPTIONS.map((opt) => (
+              <ChoiceCard
+                key={opt.value}
+                label={opt.label}
+                icon={opt.icon}
+                selected={skill === opt.value}
+                onClick={() => setSkill(opt.value)}
+              />
+            ))}
+          </div>
         </div>
 
         <Button type="submit" disabled={!isValid || isLoading}>
@@ -137,7 +143,7 @@ export default function EditProfilePage() {
         <div className="px-5">
           <BackButton />
         </div>
-        <div className="px-4 md:px-6 pt-2 pb-6">
+        <div className="px-8 md:px-10 pt-2 pb-6">
           <div className="h-8 w-32 bg-muted rounded animate-pulse" />
         </div>
       </div>
