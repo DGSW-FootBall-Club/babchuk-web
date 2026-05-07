@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   themeNoFlashScript,
 } from "@/shared/theme/ThemeProvider";
+import { DAuthHandler } from "@/feature/auth/components/DAuthHandler";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -51,13 +52,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={`${pretendard.variable} ${aRocket.variable}`}>
+    <html lang="ko" className={`${pretendard.variable} ${aRocket.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeNoFlashScript }} />
       </head>
       <body className="font-pretendard bg-background text-foreground">
         <ThemeProvider>
           <QueryClientProvider client={queryClient}>
+            <DAuthHandler />
             <div className="max-w-240 mx-auto min-h-screen">{children}</div>
           </QueryClientProvider>
         </ThemeProvider>
