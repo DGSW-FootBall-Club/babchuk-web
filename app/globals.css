@@ -62,6 +62,15 @@ body {
   color: var(--fg);
 }
 
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
 @font-face {
   font-family: "Pretendard";
   src: url("../public/fonts/Pretendard-Regular.otf") format("opentype");

@@ -1,4 +1,5 @@
 import { AnnounceResponse } from "@/feature/announcement/types/response/announceResponse";
+import { stripMarkdown, truncate } from "@/shared/utils/markdown";
 
 interface AnnouncementCardProps {
   announcement: AnnounceResponse;
@@ -34,7 +35,7 @@ export function AnnouncementCard({
       </div>
 
       <p className="text-sm text-body leading-relaxed line-clamp-3">
-        {announcement.content}
+        {truncate(stripMarkdown(announcement.content), 100)}
       </p>
     </div>
   );

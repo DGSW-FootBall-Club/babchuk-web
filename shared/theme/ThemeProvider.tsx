@@ -26,17 +26,36 @@ function applyTheme(theme: Theme) {
   else root.classList.remove("dark");
 }
 
+function getSystemTheme(): Theme {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? null;
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const initial: Theme = stored ?? (prefersDark ? "dark" : "light");
-    setThemeState(initial);
-    applyTheme(initial);
+    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    if (stored === "light" || stored === "dark") {
+      setThemeState(stored);
+      applyTheme(stored);
+    } else {
+      const sys = getSystemTheme();
+      setThemeState(sys);
+      applyTheme(sys);
+    }
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      const current = localStorage.getItem(STORAGE_KEY);
+      if (current === "light" || current === "dark") return;
+      const sys = getSystemTheme();
+      setThemeState(sys);
+      applyTheme(sys);
+    };
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
   const setTheme = useCallback((next: Theme) => {

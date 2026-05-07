@@ -21,10 +21,10 @@ export default function AnnouncementDetailPage({
           <BackButton />
         </div>
         <div className="px-4 md:px-5 flex flex-col animate-pulse">
-          <div className="w-full aspect-video bg-muted rounded-xl mb-6" />
-          <div className="h-6 w-2/3 bg-muted rounded mb-3" />
+          <div className="h-7 w-2/3 bg-muted rounded mb-3" />
           <div className="flex items-center gap-2 mb-6">
             <div className="h-3 w-20 bg-muted rounded" />
+            <div className="w-0.5 h-0.5 rounded-full bg-placeholder" />
             <div className="h-3 w-16 bg-muted rounded" />
           </div>
           <div className="w-full h-px bg-muted mb-6" />
