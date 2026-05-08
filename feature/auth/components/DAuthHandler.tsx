@@ -3,17 +3,24 @@
 import { useEffect } from 'react'
 import { authApi } from '@/feature/auth/api/authApi'
 
+function extractDAuthToken(): string | null {
+  const search = window.location.search
+  if (!search) return null
+  const match = search.match(/[?&/]token=([^&]+)/)
+  if (!match) return null
+  try {
+    return decodeURIComponent(match[1])
+  } catch {
+    return match[1]
+  }
+}
+
 export function DAuthHandler() {
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const dauthToken = params.get('token')
+    const dauthToken = extractDAuthToken()
     if (!dauthToken) return
 
-    params.delete('token')
-    const newUrl = params.toString()
-      ? `${window.location.pathname}?${params}`
-      : window.location.pathname
-    window.history.replaceState(null, '', newUrl)
+    window.history.replaceState(null, '', window.location.pathname)
 
     authApi
       .exchangeDAuthToken(dauthToken)
