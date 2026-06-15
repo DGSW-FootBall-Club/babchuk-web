@@ -20,6 +20,13 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
     }
   }, [])
 
+  useEffect(() => {
+    if (hasToken !== false) return
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('token')) return
+    router.replace('/login')
+  }, [hasToken, router])
+
   const { data: user } = useQuery({
     queryKey: ['myInfo'],
     queryFn: userApi.fetchMyInfo,
@@ -34,16 +41,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   if (hasToken === null) return null
 
-  if (!hasToken) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-background text-center">
-        <p className="text-2xl md:text-3xl font-rocket mb-4">밥축</p>
-        <p className="text-base text-muted-foreground">
-          도담에서 다시 진입해주세요.
-        </p>
-      </div>
-    )
-  }
+  if (!hasToken) return null
 
   if (user && (user.gender === null || user.skillType === null)) return null
 
