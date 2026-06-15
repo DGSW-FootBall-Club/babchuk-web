@@ -13,7 +13,7 @@ export function MatchCard({ match }: MatchCardProps) {
   return (
     <div
       className="relative bg-primary-subtle rounded-2xl active:scale-[0.98] transition-all duration-150 cursor-pointer"
-      onClick={() => router.push(`/match/${match.id}`)}
+      onClick={() => router.push(`/match/detail?id=${match.id}`)}
     >
       <div
         className={`absolute top-0 left-0 px-3 py-1.5 rounded-tl-xl rounded-br-xl text-xs font-bold ${statusStyle[match.status]}`}

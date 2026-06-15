@@ -1,6 +1,7 @@
 "use client";
 
-import { use, useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { useMatch } from "@/feature/match/hooks/useMatch";
 import { useIsJoined } from "@/feature/match/hooks/useIsJoined";
 import { useMatchActions } from "@/feature/match/hooks/useMatchActions";
@@ -8,19 +9,12 @@ import { BackButton } from "@/components/BackButton";
 import { MatchDetailSkeleton } from "@/components/match/MatchDetailSkeleton";
 import { Section } from "@/components/match/Section";
 import { PlayerAvatar } from "@/components/match/PlayerAvatar";
-import {
-  MatchStatusLabel,
-  statusStyle,
-} from "@/shared/types/Enum";
+import { MatchStatusLabel, statusStyle } from "@/shared/types/Enum";
 import { formatMatchDate, formatMatchTime } from "@/shared/utils/formatMatch";
 
-export default function MatchDetailPage({
-  params,
-}: {
-  params: Promise<{ matchId: string }>;
-}) {
-  const { matchId: id } = use(params);
-  const matchId = Number(id);
+function MatchDetailInner() {
+  const searchParams = useSearchParams();
+  const matchId = Number(searchParams.get("id") ?? "0");
   const { match, isLoading } = useMatch(matchId);
   const { isJoined } = useIsJoined(matchId);
   const {
@@ -250,5 +244,13 @@ export default function MatchDetailPage({
         )}
       </div>
     </div>
+  );
+}
+
+export default function MatchDetailPage() {
+  return (
+    <Suspense fallback={<MatchDetailSkeleton />}>
+      <MatchDetailInner />
+    </Suspense>
   );
 }

@@ -50,7 +50,7 @@ export function AnnouncementList() {
         <AnnouncementCard
           key={announcement.id}
           announcement={announcement}
-          onClick={() => router.push(`/announcement/${announcement.id}`)}
+          onClick={() => router.push(`/announcement/detail?id=${announcement.id}`)}
         />
       ))}
     </div>
