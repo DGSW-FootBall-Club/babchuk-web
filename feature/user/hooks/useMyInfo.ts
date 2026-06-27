@@ -12,12 +12,14 @@ export function useMyInfo() {
   useEffect(() => {
     if (error) {
       localStorage.removeItem('accessToken')
+      localStorage.removeItem('refreshToken')
       window.location.href = '/'
     }
   }, [error])
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
     window.location.href = '/'
   }
 

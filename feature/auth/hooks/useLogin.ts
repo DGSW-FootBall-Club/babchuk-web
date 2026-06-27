@@ -18,8 +18,9 @@ export function useLogin() {
     if (isLoading) return;
     try {
       setIsLoading(true);
-      const { accessToken } = await authApi.login(values);
+      const { accessToken, refreshToken } = await authApi.login(values);
       localStorage.setItem("accessToken", accessToken);
+      if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
       window.location.href = "/";
     } catch (e: any) {
       alert(e.response?.data?.message ?? "로그인에 실패했어요");

@@ -24,8 +24,9 @@ export function DAuthHandler() {
 
     authApi
       .exchangeDAuthToken(dauthToken)
-      .then(({ accessToken }) => {
+      .then(({ accessToken, refreshToken }) => {
         localStorage.setItem('accessToken', accessToken)
+        if (refreshToken) localStorage.setItem('refreshToken', refreshToken)
         window.location.reload()
       })
       .catch(() => {
